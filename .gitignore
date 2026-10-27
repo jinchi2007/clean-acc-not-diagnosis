@@ -30,3 +30,4 @@ paper/*.synctex.gz
 .DS_Store
 .idea/
 .vscode/
+dist/

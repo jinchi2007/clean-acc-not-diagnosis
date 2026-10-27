@@ -84,6 +84,15 @@ under `paper/` (`main.tex`, `.tcache`, `.texhome`), and rebuilding rewrites `mai
 with the same content but fresh PDF timestamps. `experiments/check_tables.py` works
 before the paper is built: it falls back to the three `_p*.tex` sources.
 
+## Submission bundle
+
+bash pkg_submission.sh assembles `dist/mst_submission/` -- the concatenated
+`main.tex`, `refs.bib`, only the six figure PDFs the manuscript includes, the
+compiled `main.pdf` and the cover letter -- and zips it as
+`dist/mst_submission.zip` for ScholarOne-style upload. The bundle is verified to
+compile standalone (20 pages, 0 Overfull, 0 LaTeX/BibTeX warnings with tectonic
+0.15.0). Re-run it after editing the sources so the shipped PDF matches.
+
 ## Hardware and software
 
 All numbers in the paper come from one machine: Apple M5, 16 GB, macOS 26.5,
