@@ -75,6 +75,13 @@ bash paper/build.sh
 A single training run takes 8--84 s on a laptop-class accelerator (Apple M5, MPS
 backend); the full matrix is about 370 runs, i.e. a few hours.
 
+The paper needs [tectonic](https://tectonic-typesetting.github.io/) (it finds `$TECTONIC`,
+then `tectonic` on `PATH`, then `../tools/tectonic`, and falls back to `xelatex`); the first
+build downloads the TeX bundle, later builds take a few seconds. All build products stay
+under `paper/` (`main.tex`, `.tcache`, `.texhome`), and rebuilding rewrites `main.pdf`
+with the same content but fresh PDF timestamps. `experiments/check_tables.py` works
+before the paper is built: it falls back to the three `_p*.tex` sources.
+
 ## Hardware and software
 
 All numbers in the paper come from one machine: Apple M5, 16 GB, macOS 26.5,
