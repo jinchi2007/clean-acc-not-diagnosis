@@ -1,0 +1,229 @@
+{
+ "cfg": {
+  "dataset": "cwru",
+  "task": "10class",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "seed": 1,
+  "model": "resnet1d",
+  "epochs": 20,
+  "batch": 128,
+  "lr": 0.002,
+  "wd": 0.0001,
+  "device": "mps",
+  "input": "raw",
+  "n_per_class": null,
+  "holdout_classes": null,
+  "noise_snr": null,
+  "noise_snrs": [
+   10.0,
+   0.0
+  ],
+  "stem": null,
+  "train_noise_lo": null,
+  "train_noise_hi": null,
+  "noise_kind": "drift",
+  "out": null
+ },
+ "data_meta": {
+  "dataset": "cwru",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "task": "10class",
+  "classes": [
+   "normal",
+   "ball_007",
+   "ball_014",
+   "ball_021",
+   "inner_007",
+   "inner_014",
+   "inner_021",
+   "outer_007",
+   "outer_014",
+   "outer_021"
+  ],
+  "seed": 0,
+  "n_per_class": null,
+  "file_ids": [
+   "097.mat",
+   "098.mat",
+   "099.mat",
+   "100.mat",
+   "105.mat",
+   "106.mat",
+   "107.mat",
+   "108.mat",
+   "118.mat",
+   "119.mat",
+   "120.mat",
+   "121.mat",
+   "130.mat",
+   "131.mat",
+   "132.mat",
+   "133.mat",
+   "169.mat",
+   "170.mat",
+   "171.mat",
+   "172.mat",
+   "185.mat",
+   "186.mat",
+   "187.mat",
+   "188.mat",
+   "197.mat",
+   "198.mat",
+   "199.mat",
+   "200.mat",
+   "209.mat",
+   "210.mat",
+   "211.mat",
+   "212.mat",
+   "222.mat",
+   "223.mat",
+   "224.mat",
+   "225.mat",
+   "234.mat",
+   "235.mat",
+   "236.mat",
+   "237.mat"
+  ],
+  "n_train": 6520,
+  "n_test": 2680
+ },
+ "n_params": 241322,
+ "n_train": 6520,
+ "test_acc": 1.0,
+ "best_test_acc": 1.0,
+ "train_time_s": 45.76,
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 0.2762645390661765,
+   "train_acc": 0.9276073619631902,
+   "test_acc": 0.8951492537313432
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.014824818061561855,
+   "train_acc": 0.9969325153374233,
+   "test_acc": 0.9835820895522388
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.0047470802503375145,
+   "train_acc": 0.9996932515337423,
+   "test_acc": 0.9992537313432835
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.003970457296218563,
+   "train_acc": 0.9992331288343558,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.0011830520603314408,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.0005118790732559525,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.00046532146880500294,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.0004725694729935126,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 9,
+   "train_loss": 0.0003787741507474973,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 10,
+   "train_loss": 0.0002490885902490421,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 11,
+   "train_loss": 0.0002921291446474672,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 12,
+   "train_loss": 0.00021768231730496775,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 13,
+   "train_loss": 0.00020709936105306232,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 14,
+   "train_loss": 0.0002475427962522497,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 15,
+   "train_loss": 0.00022474319018434984,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 16,
+   "train_loss": 0.000197961901445256,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 17,
+   "train_loss": 0.00019708587473795457,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 18,
+   "train_loss": 0.00022756708532348962,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 19,
+   "train_loss": 0.00018116333389774742,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 20,
+   "train_loss": 0.00018956350124058275,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  }
+ ],
+ "noise": {
+  "kind": "drift",
+  "acc_by_snr": {
+   "10.0": 0.701865671641791,
+   "0.0": 0.2664179104477612
+  }
+ },
+ "run_id": "resnet1d_drift_seed1"
+}

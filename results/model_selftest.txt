@@ -1,0 +1,68 @@
+device=mps  torch=2.14.1  batch=64  num_classes=10  (latency = mean of 20 forwards, median of 5 rounds)
+
+## baselines (in_ch=1)
+wdcnn        params=   34,410  1024=  1.60 ms  2048=  1.45 ms
+ticnn        params=   83,914  1024=  1.74 ms  2048=  2.47 ms
+mcnn         params=  184,554  1024= 10.91 ms  2048= 21.86 ms
+resnet1d     params=  241,322  1024=  7.72 ms  2048= 11.57 ms
+ds_cnn       params=   69,642  1024=  5.38 ms  2048= 11.98 ms
+lenet1d      params=    3,018  1024=  1.69 ms  2048=  3.68 ms
+vit1d        params=  139,850  1024= 10.67 ms  2048= 31.09 ms
+mlp_mixer1d  params=  747,722  1024= 15.27 ms  2048= 34.83 ms
+
+## in_ch=4 regression
+wdcnn        in_ch=4 params=   37,482  out=(2, 10)  ok
+ticnn        in_ch=4 params=   90,058  out=(2, 10)  ok
+mcnn         in_ch=4 params=  184,698  out=(2, 10)  ok
+resnet1d     in_ch=4 params=  241,994  out=(2, 10)  ok
+ds_cnn       in_ch=4 params=   70,122  out=(2, 10)  ok
+lenet1d      in_ch=4 params=    3,258  out=(2, 10)  ok
+vit1d        in_ch=4 params=  142,922  out=(2, 10)  ok
+mlp_mixer1d  in_ch=4 params=  753,866  out=(2, 10)  ok
+
+## build_stem_model (front-end Conv1d(1,c,k,s) + BN + ReLU)
+resnet1d   in_len=1024  k=64   s=16 c=1  L'=61   params=  241,388 (+0.03%)  out=(2, 10)  ok
+resnet1d   in_len=1024  k=64   s=16 c=4  L'=61   params=  242,258 (+0.39%)  out=(2, 10)  ok
+resnet1d   in_len=1024  k=64   s=16 c=8  L'=61   params=  243,418 (+0.87%)  out=(2, 10)  ok
+resnet1d   in_len=2048  k=64   s=16 c=1  L'=125  params=  241,388 (+0.03%)  out=(2, 10)  ok
+resnet1d   in_len=2048  k=64   s=16 c=4  L'=125  params=  242,258 (+0.39%)  out=(2, 10)  ok
+resnet1d   in_len=2048  k=64   s=16 c=8  L'=125  params=  243,418 (+0.87%)  out=(2, 10)  ok
+ds_cnn     in_len=1024  k=64   s=16 c=1  L'=61   params=   69,708 (+0.09%)  out=(2, 10)  ok
+ds_cnn     in_len=1024  k=64   s=16 c=4  L'=61   params=   70,386 (+1.07%)  out=(2, 10)  ok
+ds_cnn     in_len=1024  k=64   s=16 c=8  L'=61   params=   71,290 (+2.37%)  out=(2, 10)  ok
+ds_cnn     in_len=2048  k=64   s=16 c=1  L'=125  params=   69,708 (+0.09%)  out=(2, 10)  ok
+ds_cnn     in_len=2048  k=64   s=16 c=4  L'=125  params=   70,386 (+1.07%)  out=(2, 10)  ok
+ds_cnn     in_len=2048  k=64   s=16 c=8  L'=125  params=   71,290 (+2.37%)  out=(2, 10)  ok
+vit1d      in_len=1024  k=64   s=16 c=1  L'=61   params=  136,076 (-2.70%)  out=(2, 10)  ok
+vit1d      in_len=1024  k=64   s=16 c=4  L'=61   params=  139,346 (-0.36%)  out=(2, 10)  ok
+vit1d      in_len=1024  k=64   s=16 c=8  L'=61   params=  143,706 (+2.76%)  out=(2, 10)  ok
+vit1d      in_len=2048  k=64   s=16 c=1  L'=125  params=  136,332 (-5.29%)  out=(2, 10)  ok
+vit1d      in_len=2048  k=64   s=16 c=4  L'=125  params=  139,602 (-3.02%)  out=(2, 10)  ok
+vit1d      in_len=2048  k=64   s=16 c=8  L'=125  params=  143,962 (+0.01%)  out=(2, 10)  ok
+mcnn       in_len=1024  k=64   s=16 c=1  L'=61   params=  184,620 (+0.04%)  out=(2, 10)  ok
+mcnn       in_len=1024  k=64   s=16 c=4  L'=61   params=  184,962 (+0.22%)  out=(2, 10)  ok
+mcnn       in_len=1024  k=64   s=16 c=8  L'=61   params=  185,418 (+0.47%)  out=(2, 10)  ok
+mcnn       in_len=2048  k=64   s=16 c=1  L'=125  params=  184,620 (+0.04%)  out=(2, 10)  ok
+mcnn       in_len=2048  k=64   s=16 c=4  L'=125  params=  184,962 (+0.22%)  out=(2, 10)  ok
+mcnn       in_len=2048  k=64   s=16 c=8  L'=125  params=  185,418 (+0.47%)  out=(2, 10)  ok
+
+## latency: c=8 wide-kernel stem (k=64, s=16)
+resnet1d c=8     1024=  3.98 ms  2048=  4.10 ms
+ds_cnn c=8       1024=  3.74 ms  2048=  4.31 ms
+vit1d c=8        1024=  3.41 ms  2048=  3.58 ms
+mcnn c=8         1024=  3.38 ms  2048=  3.51 ms
+
+| model | params | 1024 ms (B=64) | 2048 ms (B=64) |
+|---|---:|---:|---:|
+| wdcnn | 34,410 | 1.60 | 1.45 |
+| ticnn | 83,914 | 1.74 | 2.47 |
+| mcnn | 184,554 | 10.91 | 21.86 |
+| resnet1d | 241,322 | 7.72 | 11.57 |
+| ds_cnn | 69,642 | 5.38 | 11.98 |
+| lenet1d | 3,018 | 1.69 | 3.68 |
+| vit1d | 139,850 | 10.67 | 31.09 |
+| mlp_mixer1d | 747,722 | 15.27 | 34.83 |
+
+train-mode forward+backward: 8/8 models OK
+contract check: len(MODELS)==8, build_model('wdcnn', 10, 1024)(4,1,1024) -> (4,10), build_stem_model('resnet1d', 10, 1024)(2,1,1024) -> (2,10)  OK
+RESULT: PASS

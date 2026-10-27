@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this code or the noise-stress protocol, please cite the paper."
+title: "Clean Accuracy Is Not Diagnosis: A Noise-Stress Re-evaluation of Lightweight Bearing Fault Diagnosis"
+type: software
+authors:
+  - family-names: "<family name>"
+    given-names: "<given name>"
+    affiliation: "<affiliation>"
+    email: "<email>"
+repository-code: "https://github.com/<user>/clean-acc-not-diagnosis"
+license: MIT
+references:
+  - type: article
+    authors:
+      - family-names: Smith
+        given-names: Wade A.
+      - family-names: Randall
+        given-names: Robert B.
+    title: "Rolling element bearing diagnostics using the Case Western Reserve University data: A benchmark study"
+    journal: "Mechanical Systems and Signal Processing"
+    volume: 64
+    start: 100
+    end: 131
+    year: 2015
+  - type: article
+    authors:
+      - family-names: Lessmeier
+        given-names: Christian
+      - family-names: Kimotho
+        given-names: James Kuria
+      - family-names: Zimmer
+        given-names: Detmar
+      - family-names: Sextro
+        given-names: Walter
+    title: "Condition monitoring of bearing damage in electromechanical drive systems by using motor current signals of electric motors: A benchmark data set for data-driven classification"
+    journal: "Proceedings of the European Conference of the PHM Society"
+    volume: 3
+    year: 2016

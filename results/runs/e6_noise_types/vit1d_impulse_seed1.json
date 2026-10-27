@@ -1,0 +1,229 @@
+{
+ "cfg": {
+  "dataset": "cwru",
+  "task": "10class",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "seed": 1,
+  "model": "vit1d",
+  "epochs": 20,
+  "batch": 128,
+  "lr": 0.002,
+  "wd": 0.0001,
+  "device": "mps",
+  "input": "raw",
+  "n_per_class": null,
+  "holdout_classes": null,
+  "noise_snr": null,
+  "noise_snrs": [
+   10.0,
+   0.0
+  ],
+  "stem": null,
+  "train_noise_lo": null,
+  "train_noise_hi": null,
+  "noise_kind": "impulse",
+  "out": null
+ },
+ "data_meta": {
+  "dataset": "cwru",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "task": "10class",
+  "classes": [
+   "normal",
+   "ball_007",
+   "ball_014",
+   "ball_021",
+   "inner_007",
+   "inner_014",
+   "inner_021",
+   "outer_007",
+   "outer_014",
+   "outer_021"
+  ],
+  "seed": 0,
+  "n_per_class": null,
+  "file_ids": [
+   "097.mat",
+   "098.mat",
+   "099.mat",
+   "100.mat",
+   "105.mat",
+   "106.mat",
+   "107.mat",
+   "108.mat",
+   "118.mat",
+   "119.mat",
+   "120.mat",
+   "121.mat",
+   "130.mat",
+   "131.mat",
+   "132.mat",
+   "133.mat",
+   "169.mat",
+   "170.mat",
+   "171.mat",
+   "172.mat",
+   "185.mat",
+   "186.mat",
+   "187.mat",
+   "188.mat",
+   "197.mat",
+   "198.mat",
+   "199.mat",
+   "200.mat",
+   "209.mat",
+   "210.mat",
+   "211.mat",
+   "212.mat",
+   "222.mat",
+   "223.mat",
+   "224.mat",
+   "225.mat",
+   "234.mat",
+   "235.mat",
+   "236.mat",
+   "237.mat"
+  ],
+  "n_train": 6520,
+  "n_test": 2680
+ },
+ "n_params": 139850,
+ "n_train": 6520,
+ "test_acc": 0.994776119402985,
+ "best_test_acc": 0.996268656716418,
+ "train_time_s": 76.13,
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 0.7839393229023811,
+   "train_acc": 0.7763803680981595,
+   "test_acc": 0.9652985074626865
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.08949806954871657,
+   "train_acc": 0.978680981595092,
+   "test_acc": 0.9850746268656716
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.04560898300374578,
+   "train_acc": 0.9888036809815951,
+   "test_acc": 0.9854477611940299
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.02347675254282776,
+   "train_acc": 0.9937116564417178,
+   "test_acc": 0.9809701492537314
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.017063232723829206,
+   "train_acc": 0.9955521472392638,
+   "test_acc": 0.991044776119403
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.007164473134875755,
+   "train_acc": 0.9983128834355828,
+   "test_acc": 0.9955223880597015
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.010293570462545735,
+   "train_acc": 0.9973926380368098,
+   "test_acc": 0.9843283582089553
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.003600397681463167,
+   "train_acc": 0.9995398773006134,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 9,
+   "train_loss": 0.0013416137800557665,
+   "train_acc": 1.0,
+   "test_acc": 0.9955223880597015
+  },
+  {
+   "epoch": 10,
+   "train_loss": 0.0009812595264163393,
+   "train_acc": 1.0,
+   "test_acc": 0.996268656716418
+  },
+  {
+   "epoch": 11,
+   "train_loss": 0.0008582221354826417,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 12,
+   "train_loss": 0.0007794666250430596,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 13,
+   "train_loss": 0.0007126617681040812,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 14,
+   "train_loss": 0.0006686749979510812,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 15,
+   "train_loss": 0.0006448578894384023,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 16,
+   "train_loss": 0.0006271321653599845,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 17,
+   "train_loss": 0.0006232463466174946,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 18,
+   "train_loss": 0.0006025853336137359,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 19,
+   "train_loss": 0.0005937012653809292,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 20,
+   "train_loss": 0.0005964166543337922,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  }
+ ],
+ "noise": {
+  "kind": "impulse",
+  "acc_by_snr": {
+   "10.0": 0.85,
+   "0.0": 0.7082089552238806
+  }
+ },
+ "run_id": "vit1d_impulse_seed1"
+}

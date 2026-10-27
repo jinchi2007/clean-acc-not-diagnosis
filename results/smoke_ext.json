@@ -1,0 +1,119 @@
+{
+  "cfg": {
+    "dataset": "cwru",
+    "task": "10class",
+    "split": "safe",
+    "overlap": 0.5,
+    "win": 1024,
+    "seed": 0,
+    "model": "lenet1d",
+    "epochs": 3,
+    "batch": 128,
+    "lr": 0.002,
+    "wd": 0.0001,
+    "device": "mps",
+    "n_per_class": 20,
+    "holdout_classes": null,
+    "noise_snr": 0.0,
+    "noise_snrs": null,
+    "noise_kind": "gaussian",
+    "out": "results/smoke_ext.json"
+  },
+  "data_meta": {
+    "dataset": "cwru",
+    "split": "safe",
+    "overlap": 0.5,
+    "win": 1024,
+    "task": "10class",
+    "classes": [
+      "normal",
+      "ball_007",
+      "ball_014",
+      "ball_021",
+      "inner_007",
+      "inner_014",
+      "inner_021",
+      "outer_007",
+      "outer_014",
+      "outer_021"
+    ],
+    "seed": 0,
+    "n_per_class": null,
+    "file_ids": [
+      "097.mat",
+      "098.mat",
+      "099.mat",
+      "100.mat",
+      "105.mat",
+      "106.mat",
+      "107.mat",
+      "108.mat",
+      "118.mat",
+      "119.mat",
+      "120.mat",
+      "121.mat",
+      "130.mat",
+      "131.mat",
+      "132.mat",
+      "133.mat",
+      "169.mat",
+      "170.mat",
+      "171.mat",
+      "172.mat",
+      "185.mat",
+      "186.mat",
+      "187.mat",
+      "188.mat",
+      "197.mat",
+      "198.mat",
+      "199.mat",
+      "200.mat",
+      "209.mat",
+      "210.mat",
+      "211.mat",
+      "212.mat",
+      "222.mat",
+      "223.mat",
+      "224.mat",
+      "225.mat",
+      "234.mat",
+      "235.mat",
+      "236.mat",
+      "237.mat"
+    ],
+    "n_train": 6520,
+    "n_test": 2680
+  },
+  "n_params": 3018,
+  "n_train": 200,
+  "test_acc": 0.19440298507462686,
+  "best_test_acc": 0.19962686567164178,
+  "train_time_s": 2.92,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 2.308176555633545,
+      "train_acc": 0.1,
+      "test_acc": 0.1
+    },
+    {
+      "epoch": 2,
+      "train_loss": 2.293795051574707,
+      "train_acc": 0.13,
+      "test_acc": 0.19962686567164178
+    },
+    {
+      "epoch": 3,
+      "train_loss": 2.2866407871246337,
+      "train_acc": 0.2,
+      "test_acc": 0.19440298507462686
+    }
+  ],
+  "noise": {
+    "kind": "gaussian",
+    "acc_by_snr": {
+      "0.0": 0.1966417910447761
+    }
+  },
+  "test_acc_noise": 0.1966417910447761
+}

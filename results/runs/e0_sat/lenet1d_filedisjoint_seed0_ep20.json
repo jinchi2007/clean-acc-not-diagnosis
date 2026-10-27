@@ -1,0 +1,265 @@
+{
+ "cfg": {
+  "model": "lenet1d",
+  "split": "filedisjoint",
+  "overlap": 0.5,
+  "win": 1024,
+  "seed": 0,
+  "epochs": 20
+ },
+ "data_meta": {
+  "dataset": "cwru",
+  "split": "filedisjoint",
+  "overlap": 0.5,
+  "win": 1024,
+  "task": "10class",
+  "classes": [
+   "normal",
+   "ball_007",
+   "ball_014",
+   "ball_021",
+   "inner_007",
+   "inner_014",
+   "inner_021",
+   "outer_007",
+   "outer_014",
+   "outer_021"
+  ],
+  "seed": 0,
+  "n_per_class": null,
+  "file_ids": [
+   "097.mat",
+   "098.mat",
+   "099.mat",
+   "100.mat",
+   "105.mat",
+   "106.mat",
+   "107.mat",
+   "108.mat",
+   "118.mat",
+   "119.mat",
+   "120.mat",
+   "121.mat",
+   "130.mat",
+   "131.mat",
+   "132.mat",
+   "133.mat",
+   "169.mat",
+   "170.mat",
+   "171.mat",
+   "172.mat",
+   "185.mat",
+   "186.mat",
+   "187.mat",
+   "188.mat",
+   "197.mat",
+   "198.mat",
+   "199.mat",
+   "200.mat",
+   "209.mat",
+   "210.mat",
+   "211.mat",
+   "212.mat",
+   "222.mat",
+   "223.mat",
+   "224.mat",
+   "225.mat",
+   "234.mat",
+   "235.mat",
+   "236.mat",
+   "237.mat"
+  ],
+  "file_split": {
+   "normal": {
+    "n_files": 4,
+    "test_files": [
+     98
+    ]
+   },
+   "ball_007": {
+    "n_files": 4,
+    "test_files": [
+     121
+    ]
+   },
+   "ball_014": {
+    "n_files": 4,
+    "test_files": [
+     185
+    ]
+   },
+   "ball_021": {
+    "n_files": 4,
+    "test_files": [
+     222
+    ]
+   },
+   "inner_007": {
+    "n_files": 4,
+    "test_files": [
+     108
+    ]
+   },
+   "inner_014": {
+    "n_files": 4,
+    "test_files": [
+     171
+    ]
+   },
+   "inner_021": {
+    "n_files": 4,
+    "test_files": [
+     209
+    ]
+   },
+   "outer_007": {
+    "n_files": 4,
+    "test_files": [
+     132
+    ]
+   },
+   "outer_014": {
+    "n_files": 4,
+    "test_files": [
+     198
+    ]
+   },
+   "outer_021": {
+    "n_files": 4,
+    "test_files": [
+     235
+    ]
+   }
+  },
+  "n_train": 6990,
+  "n_test": 2330
+ },
+ "n_params": 3018,
+ "n_train": 6990,
+ "test_acc": 0.9201716738197425,
+ "best_test_acc": 0.9287553648068669,
+ "train_time_s": 19.23,
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 2.1217103841137646,
+   "train_acc": 0.2805436337625179,
+   "test_acc": 0.47682403433476395
+  },
+  {
+   "epoch": 2,
+   "train_loss": 1.5303067312731764,
+   "train_acc": 0.6416309012875536,
+   "test_acc": 0.6673819742489271
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.8980896365147975,
+   "train_acc": 0.8356223175965666,
+   "test_acc": 0.8081545064377682
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.5348698781539443,
+   "train_acc": 0.9197424892703863,
+   "test_acc": 0.8939914163090129
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.3593295014041006,
+   "train_acc": 0.9560801144492131,
+   "test_acc": 0.9141630901287554
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.26094483613797353,
+   "train_acc": 0.9706723891273248,
+   "test_acc": 0.9047210300429185
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.20587076421544617,
+   "train_acc": 0.9772532188841202,
+   "test_acc": 0.9227467811158798
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.16650657415901643,
+   "train_acc": 0.98068669527897,
+   "test_acc": 0.8871244635193133
+  },
+  {
+   "epoch": 9,
+   "train_loss": 0.1438468791981453,
+   "train_acc": 0.9821173104434907,
+   "test_acc": 0.91931330472103
+  },
+  {
+   "epoch": 10,
+   "train_loss": 0.12689079873167905,
+   "train_acc": 0.9844062947067239,
+   "test_acc": 0.9025751072961373
+  },
+  {
+   "epoch": 11,
+   "train_loss": 0.11396235339077075,
+   "train_acc": 0.9856938483547926,
+   "test_acc": 0.9124463519313305
+  },
+  {
+   "epoch": 12,
+   "train_loss": 0.10445062208584961,
+   "train_acc": 0.986552217453505,
+   "test_acc": 0.9158798283261803
+  },
+  {
+   "epoch": 13,
+   "train_loss": 0.09780052284015947,
+   "train_acc": 0.9869814020028612,
+   "test_acc": 0.9274678111587983
+  },
+  {
+   "epoch": 14,
+   "train_loss": 0.09237077977609566,
+   "train_acc": 0.9871244635193133,
+   "test_acc": 0.9090128755364807
+  },
+  {
+   "epoch": 15,
+   "train_loss": 0.08879290991202957,
+   "train_acc": 0.9871244635193133,
+   "test_acc": 0.9158798283261803
+  },
+  {
+   "epoch": 16,
+   "train_loss": 0.08591672230687776,
+   "train_acc": 0.9889842632331902,
+   "test_acc": 0.9287553648068669
+  },
+  {
+   "epoch": 17,
+   "train_loss": 0.08469287455934653,
+   "train_acc": 0.9894134477825465,
+   "test_acc": 0.9261802575107296
+  },
+  {
+   "epoch": 18,
+   "train_loss": 0.0833055313212933,
+   "train_acc": 0.9886981402002861,
+   "test_acc": 0.9175965665236051
+  },
+  {
+   "epoch": 19,
+   "train_loss": 0.0823610236801644,
+   "train_acc": 0.9891273247496424,
+   "test_acc": 0.9206008583690987
+  },
+  {
+   "epoch": 20,
+   "train_loss": 0.08207588549996479,
+   "train_acc": 0.9891273247496424,
+   "test_acc": 0.9201716738197425
+  }
+ ],
+ "run_id": "lenet1d_filedisjoint_seed0_ep20"
+}

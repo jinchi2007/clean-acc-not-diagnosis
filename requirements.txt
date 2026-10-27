@@ -1,0 +1,7 @@
+numpy>=1.26
+matplotlib>=3.8
+scipy>=1.11
+torch>=2.4
+torchvision>=0.19
+# optional: render PDF pages for visual checks
+pypdfium2>=4.0

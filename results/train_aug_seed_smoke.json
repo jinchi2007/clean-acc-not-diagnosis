@@ -1,0 +1,32 @@
+{
+ "cfg": {
+  "model": "wdcnn",
+  "split": "safe",
+  "epochs": 20,
+  "seed": 0,
+  "device": "cpu",
+  "batch": 128,
+  "lr": 0.002,
+  "wd": 0.0001,
+  "train_noise_lo": 10.0,
+  "train_noise_hi": 10.0,
+  "noise_kind": "gaussian",
+  "noise_snrs": [
+   10.0
+  ]
+ },
+ "device": "cpu",
+ "identical_history": true,
+ "final_test_acc": [
+  0.9981343283582089,
+  0.9981343283582089
+ ],
+ "test_acc_10db": [
+  0.9970149253731343,
+  0.9970149253731343
+ ],
+ "train_loss_last": [
+  0.0023264768327717765,
+  0.0023264768327717765
+ ]
+}

@@ -1,0 +1,229 @@
+{
+ "cfg": {
+  "dataset": "cwru",
+  "task": "10class",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "seed": 1,
+  "model": "wdcnn",
+  "epochs": 20,
+  "batch": 128,
+  "lr": 0.002,
+  "wd": 0.0001,
+  "device": "mps",
+  "input": "raw",
+  "n_per_class": null,
+  "holdout_classes": null,
+  "noise_snr": null,
+  "noise_snrs": [
+   10.0,
+   0.0
+  ],
+  "stem": null,
+  "train_noise_lo": null,
+  "train_noise_hi": null,
+  "noise_kind": "impulse",
+  "out": null
+ },
+ "data_meta": {
+  "dataset": "cwru",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "task": "10class",
+  "classes": [
+   "normal",
+   "ball_007",
+   "ball_014",
+   "ball_021",
+   "inner_007",
+   "inner_014",
+   "inner_021",
+   "outer_007",
+   "outer_014",
+   "outer_021"
+  ],
+  "seed": 0,
+  "n_per_class": null,
+  "file_ids": [
+   "097.mat",
+   "098.mat",
+   "099.mat",
+   "100.mat",
+   "105.mat",
+   "106.mat",
+   "107.mat",
+   "108.mat",
+   "118.mat",
+   "119.mat",
+   "120.mat",
+   "121.mat",
+   "130.mat",
+   "131.mat",
+   "132.mat",
+   "133.mat",
+   "169.mat",
+   "170.mat",
+   "171.mat",
+   "172.mat",
+   "185.mat",
+   "186.mat",
+   "187.mat",
+   "188.mat",
+   "197.mat",
+   "198.mat",
+   "199.mat",
+   "200.mat",
+   "209.mat",
+   "210.mat",
+   "211.mat",
+   "212.mat",
+   "222.mat",
+   "223.mat",
+   "224.mat",
+   "225.mat",
+   "234.mat",
+   "235.mat",
+   "236.mat",
+   "237.mat"
+  ],
+  "n_train": 6520,
+  "n_test": 2680
+ },
+ "n_params": 34410,
+ "n_train": 6520,
+ "test_acc": 0.9973880597014926,
+ "best_test_acc": 0.9977611940298508,
+ "train_time_s": 15.71,
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 0.8896785477553408,
+   "train_acc": 0.7754601226993865,
+   "test_acc": 0.9679104477611941
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.10919416497912875,
+   "train_acc": 0.9846625766871165,
+   "test_acc": 0.9772388059701492
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.037369797179943945,
+   "train_acc": 0.9943251533742331,
+   "test_acc": 0.9932835820895523
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.019363935513456176,
+   "train_acc": 0.998159509202454,
+   "test_acc": 0.9921641791044776
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.01292503896552178,
+   "train_acc": 0.9986196319018404,
+   "test_acc": 0.9955223880597015
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.008709322648305743,
+   "train_acc": 0.9992331288343558,
+   "test_acc": 0.9936567164179104
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.006154031698460594,
+   "train_acc": 0.9996932515337423,
+   "test_acc": 0.9977611940298508
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.005051101308795938,
+   "train_acc": 0.9998466257668711,
+   "test_acc": 0.9966417910447761
+  },
+  {
+   "epoch": 9,
+   "train_loss": 0.0036124373061948117,
+   "train_acc": 0.9996932515337423,
+   "test_acc": 0.9958955223880597
+  },
+  {
+   "epoch": 10,
+   "train_loss": 0.003134844988653082,
+   "train_acc": 0.9998466257668711,
+   "test_acc": 0.9970149253731343
+  },
+  {
+   "epoch": 11,
+   "train_loss": 0.0026098979611315428,
+   "train_acc": 1.0,
+   "test_acc": 0.996268656716418
+  },
+  {
+   "epoch": 12,
+   "train_loss": 0.0021466899566078114,
+   "train_acc": 1.0,
+   "test_acc": 0.9970149253731343
+  },
+  {
+   "epoch": 13,
+   "train_loss": 0.0018801696495684378,
+   "train_acc": 1.0,
+   "test_acc": 0.996268656716418
+  },
+  {
+   "epoch": 14,
+   "train_loss": 0.0018905193249243626,
+   "train_acc": 1.0,
+   "test_acc": 0.9970149253731343
+  },
+  {
+   "epoch": 15,
+   "train_loss": 0.0017592659887166386,
+   "train_acc": 1.0,
+   "test_acc": 0.9958955223880597
+  },
+  {
+   "epoch": 16,
+   "train_loss": 0.0015305717518564565,
+   "train_acc": 1.0,
+   "test_acc": 0.9973880597014926
+  },
+  {
+   "epoch": 17,
+   "train_loss": 0.0015016916832183858,
+   "train_acc": 1.0,
+   "test_acc": 0.9973880597014926
+  },
+  {
+   "epoch": 18,
+   "train_loss": 0.0015483918265536702,
+   "train_acc": 1.0,
+   "test_acc": 0.9958955223880597
+  },
+  {
+   "epoch": 19,
+   "train_loss": 0.0014653055947216832,
+   "train_acc": 1.0,
+   "test_acc": 0.9973880597014926
+  },
+  {
+   "epoch": 20,
+   "train_loss": 0.0014378631868873911,
+   "train_acc": 1.0,
+   "test_acc": 0.9973880597014926
+  }
+ ],
+ "noise": {
+  "kind": "impulse",
+  "acc_by_snr": {
+   "10.0": 0.9690298507462687,
+   "0.0": 0.45746268656716416
+  }
+ },
+ "run_id": "wdcnn_impulse_seed1"
+}

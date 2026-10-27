@@ -1,0 +1,203 @@
+{
+  "experiment": "E1_saturation",
+  "epochs": 10,
+  "seeds": [
+    0
+  ],
+  "task": "10class",
+  "rows": [
+    {
+      "model": "wdcnn",
+      "split": "leaky",
+      "seed": 0,
+      "test_acc": 0.9989247311827957,
+      "n_params": 34410,
+      "train_time_s": 11.38
+    },
+    {
+      "model": "wdcnn",
+      "split": "safe",
+      "seed": 0,
+      "test_acc": 0.9970149253731343,
+      "n_params": 34410,
+      "train_time_s": 5.25
+    },
+    {
+      "model": "wdcnn",
+      "split": "crossload",
+      "seed": 0,
+      "test_acc": 0.9366952789699571,
+      "n_params": 34410,
+      "train_time_s": 4.23
+    },
+    {
+      "model": "ticnn",
+      "split": "leaky",
+      "seed": 0,
+      "test_acc": 1.0,
+      "n_params": 83914,
+      "train_time_s": 6.67
+    },
+    {
+      "model": "ticnn",
+      "split": "safe",
+      "seed": 0,
+      "test_acc": 1.0,
+      "n_params": 83914,
+      "train_time_s": 5.19
+    },
+    {
+      "model": "ticnn",
+      "split": "crossload",
+      "seed": 0,
+      "test_acc": 0.9096566523605151,
+      "n_params": 83914,
+      "train_time_s": 4.18
+    },
+    {
+      "model": "mcnn",
+      "split": "leaky",
+      "seed": 0,
+      "test_acc": 1.0,
+      "n_params": 184554,
+      "train_time_s": 22.65
+    },
+    {
+      "model": "mcnn",
+      "split": "safe",
+      "seed": 0,
+      "test_acc": 1.0,
+      "n_params": 184554,
+      "train_time_s": 16.97
+    },
+    {
+      "model": "mcnn",
+      "split": "crossload",
+      "seed": 0,
+      "test_acc": 0.9,
+      "n_params": 184554,
+      "train_time_s": 14.51
+    },
+    {
+      "model": "resnet1d",
+      "split": "leaky",
+      "seed": 0,
+      "test_acc": 0.9989247311827957,
+      "n_params": 241322,
+      "train_time_s": 11.26
+    },
+    {
+      "model": "resnet1d",
+      "split": "safe",
+      "seed": 0,
+      "test_acc": 0.9996268656716418,
+      "n_params": 241322,
+      "train_time_s": 9.38
+    },
+    {
+      "model": "resnet1d",
+      "split": "crossload",
+      "seed": 0,
+      "test_acc": 0.8991416309012875,
+      "n_params": 241322,
+      "train_time_s": 8.0
+    },
+    {
+      "model": "ds_cnn",
+      "split": "leaky",
+      "seed": 0,
+      "test_acc": 1.0,
+      "n_params": 69642,
+      "train_time_s": 11.53
+    },
+    {
+      "model": "ds_cnn",
+      "split": "safe",
+      "seed": 0,
+      "test_acc": 0.9996268656716418,
+      "n_params": 69642,
+      "train_time_s": 9.37
+    },
+    {
+      "model": "ds_cnn",
+      "split": "crossload",
+      "seed": 0,
+      "test_acc": 0.9002145922746781,
+      "n_params": 69642,
+      "train_time_s": 7.86
+    },
+    {
+      "model": "lenet1d",
+      "split": "leaky",
+      "seed": 0,
+      "test_acc": 0.9596774193548387,
+      "n_params": 3018,
+      "train_time_s": 5.35
+    },
+    {
+      "model": "lenet1d",
+      "split": "safe",
+      "seed": 0,
+      "test_acc": 0.9526119402985075,
+      "n_params": 3018,
+      "train_time_s": 4.1
+    },
+    {
+      "model": "lenet1d",
+      "split": "crossload",
+      "seed": 0,
+      "test_acc": 0.8283261802575107,
+      "n_params": 3018,
+      "train_time_s": 3.52
+    },
+    {
+      "model": "vit1d",
+      "split": "leaky",
+      "seed": 0,
+      "test_acc": 0.9978494623655914,
+      "n_params": 139850,
+      "train_time_s": 18.7
+    },
+    {
+      "model": "vit1d",
+      "split": "safe",
+      "seed": 0,
+      "test_acc": 0.9958955223880597,
+      "n_params": 139850,
+      "train_time_s": 15.0
+    },
+    {
+      "model": "vit1d",
+      "split": "crossload",
+      "seed": 0,
+      "test_acc": 0.8890557939914163,
+      "n_params": 139850,
+      "train_time_s": 12.92
+    },
+    {
+      "model": "mlp_mixer1d",
+      "split": "leaky",
+      "seed": 0,
+      "test_acc": 0.9989247311827957,
+      "n_params": 747722,
+      "train_time_s": 34.36
+    },
+    {
+      "model": "mlp_mixer1d",
+      "split": "safe",
+      "seed": 0,
+      "test_acc": 0.9951492537313433,
+      "n_params": 747722,
+      "train_time_s": 29.32
+    },
+    {
+      "model": "mlp_mixer1d",
+      "split": "crossload",
+      "seed": 0,
+      "test_acc": 0.8813304721030043,
+      "n_params": 747722,
+      "train_time_s": 25.99
+    }
+  ],
+  "table_md": "| model | params | leaky | safe | crossload |\n|---|---:|---:|---:|---:|\n| wdcnn | 34410 | 0.9989 | 0.9970 | 0.9367 |\n| ticnn | 83914 | 1.0000 | 1.0000 | 0.9097 |\n| mcnn | 184554 | 1.0000 | 1.0000 | 0.9000 |\n| resnet1d | 241322 | 0.9989 | 0.9996 | 0.8991 |\n| ds_cnn | 69642 | 1.0000 | 0.9996 | 0.9002 |\n| lenet1d | 3018 | 0.9597 | 0.9526 | 0.8283 |\n| vit1d | 139850 | 0.9978 | 0.9959 | 0.8891 |\n| mlp_mixer1d | 747722 | 0.9989 | 0.9951 | 0.8813 |"
+}

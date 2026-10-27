@@ -1,0 +1,126 @@
+{
+ "cfg": {
+  "dataset": "paderborn",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "seed": 0,
+  "model": "resnet1d",
+  "epochs": 15,
+  "batch": 128,
+  "lr": 0.002,
+  "wd": 0.0001,
+  "device": "mps",
+  "noise_snrs": [
+   10.0,
+   5.0,
+   0.0
+  ]
+ },
+ "n_params": 240290,
+ "n_train": 60000,
+ "test_acc": 0.98975,
+ "best_test_acc": 0.98975,
+ "train_time_s": 492.04,
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 0.19004810490608215,
+   "train_acc": 0.9180166666666667,
+   "monitor_test_acc": 0.86975
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.08372730640172958,
+   "train_acc": 0.96635,
+   "monitor_test_acc": 0.96175
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.06478258267045021,
+   "train_acc": 0.9747166666666667,
+   "monitor_test_acc": 0.922
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.054062774588664375,
+   "train_acc": 0.9791166666666666,
+   "monitor_test_acc": 0.977
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.0408620220541954,
+   "train_acc": 0.9836,
+   "monitor_test_acc": 0.9365
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.03636371948470672,
+   "train_acc": 0.9856833333333334,
+   "monitor_test_acc": 0.95625
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.028871288204193116,
+   "train_acc": 0.9892166666666666,
+   "monitor_test_acc": 0.97075
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.023959293167913953,
+   "train_acc": 0.9910666666666667,
+   "monitor_test_acc": 0.982
+  },
+  {
+   "epoch": 9,
+   "train_loss": 0.016204878993332388,
+   "train_acc": 0.9940833333333333,
+   "monitor_test_acc": 0.98525
+  },
+  {
+   "epoch": 10,
+   "train_loss": 0.012038952286417286,
+   "train_acc": 0.9957,
+   "monitor_test_acc": 0.98475
+  },
+  {
+   "epoch": 11,
+   "train_loss": 0.00792927180750606,
+   "train_acc": 0.9972333333333333,
+   "monitor_test_acc": 0.983
+  },
+  {
+   "epoch": 12,
+   "train_loss": 0.005329587076045573,
+   "train_acc": 0.9983666666666666,
+   "monitor_test_acc": 0.98775
+  },
+  {
+   "epoch": 13,
+   "train_loss": 0.0034956180475496997,
+   "train_acc": 0.9989833333333333,
+   "monitor_test_acc": 0.987
+  },
+  {
+   "epoch": 14,
+   "train_loss": 0.002973882611701265,
+   "train_acc": 0.9993,
+   "monitor_test_acc": 0.9865
+  },
+  {
+   "epoch": 15,
+   "train_loss": 0.0020478243253349016,
+   "train_acc": 0.99965,
+   "monitor_test_acc": 0.9875
+  }
+ ],
+ "noise": {
+  "kind": "gaussian",
+  "acc_by_snr": {
+   "10.0": 0.9017,
+   "5.0": 0.77225,
+   "0.0": 0.56785
+  }
+ },
+ "run_id": "resnet1d_safe_seed0_ep15_plain"
+}

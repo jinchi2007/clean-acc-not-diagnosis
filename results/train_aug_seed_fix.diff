@@ -1,0 +1,26 @@
+--- a/code/train.py  (修复前)
++++ b/code/train.py  (修复后, 行号 189-201)
+@@ -189,10 +189,14 @@
+-        for xb, yb in loader:
++        for bi, (xb, yb) in enumerate(loader):
+             xb, yb = xb.to(device), yb.to(device)
+             if cfg.get("train_noise_lo") is not None:
+                 lo, hi = float(cfg["train_noise_lo"]), float(cfg["train_noise_hi"])
+-                snr = float(np.random.default_rng().uniform(lo, hi))
++                # 逐 batch 确定性 RNG：SNR ~ U[lo, hi] 语义不变，但同一
++                # (cfg.seed, epoch, batch_idx) 抽到的 SNR 与噪声实现完全一致，
++                # 让同一 cfg 重跑逐 batch 可复现（此前用未播种的 default_rng，会抖动）。
++                rng = np.random.default_rng(int(cfg["seed"]) * 100003 + ep * 1009 + bi)
++                snr = float(rng.uniform(lo, hi))
+                 xb = torch.from_numpy(
+                     add_noise(xb.detach().cpu().numpy(), snr, cfg.get("noise_kind", "gaussian"),
+-                              seed=int(np.random.randint(0, 2**31 - 1)))
++                              seed=int(rng.integers(0, 2**31 - 1)))
+                 ).to(device)
+
+语义说明：
+1. 仍是 SNR ~ U[lo, hi]（lo==hi 时退化为固定 SNR），噪声类型/幅度分布不变；
+2. 变化的只是随机源：从"每次调用新建未播种 Generator"改为"按 (seed, epoch, batch) 派生"，
+   因此不同 seed 仍抽样不同，同一 cfg 完全可复现；
+3. 噪声实现 seed 也由同一 rng 派生（原来用全局 np.random），现在逐 batch 可复现；
+4. 不改任何默认 cfg、不改 evaluate/测试端加噪逻辑（code/train.py:252 处测试端本来就用 cfg["seed"]）。

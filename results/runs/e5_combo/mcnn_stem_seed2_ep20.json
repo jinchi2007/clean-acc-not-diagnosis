@@ -1,0 +1,231 @@
+{
+ "cfg": {
+  "model": "mcnn",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "seed": 2,
+  "epochs": 20,
+  "batch": 128,
+  "lr": 0.002,
+  "wd": 0.0001,
+  "device": "mps",
+  "noise_snrs": [
+   15.0,
+   10.0,
+   5.0,
+   0.0,
+   -5.0
+  ],
+  "stem": [
+   64,
+   16,
+   8
+  ]
+ },
+ "data_meta": {
+  "dataset": "cwru",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "task": "10class",
+  "classes": [
+   "normal",
+   "ball_007",
+   "ball_014",
+   "ball_021",
+   "inner_007",
+   "inner_014",
+   "inner_021",
+   "outer_007",
+   "outer_014",
+   "outer_021"
+  ],
+  "seed": 0,
+  "n_per_class": null,
+  "file_ids": [
+   "097.mat",
+   "098.mat",
+   "099.mat",
+   "100.mat",
+   "105.mat",
+   "106.mat",
+   "107.mat",
+   "108.mat",
+   "118.mat",
+   "119.mat",
+   "120.mat",
+   "121.mat",
+   "130.mat",
+   "131.mat",
+   "132.mat",
+   "133.mat",
+   "169.mat",
+   "170.mat",
+   "171.mat",
+   "172.mat",
+   "185.mat",
+   "186.mat",
+   "187.mat",
+   "188.mat",
+   "197.mat",
+   "198.mat",
+   "199.mat",
+   "200.mat",
+   "209.mat",
+   "210.mat",
+   "211.mat",
+   "212.mat",
+   "222.mat",
+   "223.mat",
+   "224.mat",
+   "225.mat",
+   "234.mat",
+   "235.mat",
+   "236.mat",
+   "237.mat"
+  ],
+  "n_train": 6520,
+  "n_test": 2680
+ },
+ "n_params": 185418,
+ "n_train": 6520,
+ "test_acc": 0.994776119402985,
+ "best_test_acc": 0.9951492537313433,
+ "train_time_s": 36.28,
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 0.46707611710198815,
+   "train_acc": 0.8734662576687117,
+   "test_acc": 0.9242537313432836
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.05668256637051793,
+   "train_acc": 0.9860429447852761,
+   "test_acc": 0.9690298507462687
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.02176819553404498,
+   "train_acc": 0.9966257668711657,
+   "test_acc": 0.9895522388059701
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.014956855475674012,
+   "train_acc": 0.9966257668711657,
+   "test_acc": 0.9929104477611941
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.004031232512481739,
+   "train_acc": 1.0,
+   "test_acc": 0.9929104477611941
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.002734452975982446,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.0015352736054376865,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.0011627924310734805,
+   "train_acc": 1.0,
+   "test_acc": 0.9944029850746269
+  },
+  {
+   "epoch": 9,
+   "train_loss": 0.0010004691338235158,
+   "train_acc": 1.0,
+   "test_acc": 0.9944029850746269
+  },
+  {
+   "epoch": 10,
+   "train_loss": 0.0007369740820415547,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 11,
+   "train_loss": 0.0007099767943324259,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 12,
+   "train_loss": 0.0006419714024587552,
+   "train_acc": 1.0,
+   "test_acc": 0.9951492537313433
+  },
+  {
+   "epoch": 13,
+   "train_loss": 0.0005967323550814477,
+   "train_acc": 1.0,
+   "test_acc": 0.9940298507462687
+  },
+  {
+   "epoch": 14,
+   "train_loss": 0.0006431684721449813,
+   "train_acc": 1.0,
+   "test_acc": 0.9932835820895523
+  },
+  {
+   "epoch": 15,
+   "train_loss": 0.000565519939109603,
+   "train_acc": 1.0,
+   "test_acc": 0.9944029850746269
+  },
+  {
+   "epoch": 16,
+   "train_loss": 0.0005113907517976716,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 17,
+   "train_loss": 0.0004790411283622033,
+   "train_acc": 1.0,
+   "test_acc": 0.9944029850746269
+  },
+  {
+   "epoch": 18,
+   "train_loss": 0.0004740377397425016,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  },
+  {
+   "epoch": 19,
+   "train_loss": 0.0004888070243742157,
+   "train_acc": 1.0,
+   "test_acc": 0.9944029850746269
+  },
+  {
+   "epoch": 20,
+   "train_loss": 0.00046324764336944996,
+   "train_acc": 1.0,
+   "test_acc": 0.994776119402985
+  }
+ ],
+ "noise": {
+  "kind": "gaussian",
+  "acc_by_snr": {
+   "15.0": 0.9944029850746269,
+   "10.0": 0.9936567164179104,
+   "5.0": 0.9626865671641791,
+   "0.0": 0.6458955223880597,
+   "-5.0": 0.14701492537313432
+  }
+ },
+ "run_id": "mcnn_stem_seed2_ep20",
+ "model_name": "mcnn",
+ "condition": "stem"
+}

@@ -1,0 +1,229 @@
+{
+ "cfg": {
+  "dataset": "cwru",
+  "task": "10class",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "seed": 1,
+  "model": "ds_cnn",
+  "epochs": 20,
+  "batch": 128,
+  "lr": 0.002,
+  "wd": 0.0001,
+  "device": "mps",
+  "input": "raw",
+  "n_per_class": null,
+  "holdout_classes": null,
+  "noise_snr": null,
+  "noise_snrs": [
+   10.0,
+   0.0
+  ],
+  "stem": null,
+  "train_noise_lo": null,
+  "train_noise_hi": null,
+  "noise_kind": "drift",
+  "out": null
+ },
+ "data_meta": {
+  "dataset": "cwru",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "task": "10class",
+  "classes": [
+   "normal",
+   "ball_007",
+   "ball_014",
+   "ball_021",
+   "inner_007",
+   "inner_014",
+   "inner_021",
+   "outer_007",
+   "outer_014",
+   "outer_021"
+  ],
+  "seed": 0,
+  "n_per_class": null,
+  "file_ids": [
+   "097.mat",
+   "098.mat",
+   "099.mat",
+   "100.mat",
+   "105.mat",
+   "106.mat",
+   "107.mat",
+   "108.mat",
+   "118.mat",
+   "119.mat",
+   "120.mat",
+   "121.mat",
+   "130.mat",
+   "131.mat",
+   "132.mat",
+   "133.mat",
+   "169.mat",
+   "170.mat",
+   "171.mat",
+   "172.mat",
+   "185.mat",
+   "186.mat",
+   "187.mat",
+   "188.mat",
+   "197.mat",
+   "198.mat",
+   "199.mat",
+   "200.mat",
+   "209.mat",
+   "210.mat",
+   "211.mat",
+   "212.mat",
+   "222.mat",
+   "223.mat",
+   "224.mat",
+   "225.mat",
+   "234.mat",
+   "235.mat",
+   "236.mat",
+   "237.mat"
+  ],
+  "n_train": 6520,
+  "n_test": 2680
+ },
+ "n_params": 69642,
+ "n_train": 6520,
+ "test_acc": 0.9996268656716418,
+ "best_test_acc": 1.0,
+ "train_time_s": 60.1,
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 0.7803483524205495,
+   "train_acc": 0.8306748466257668,
+   "test_acc": 0.9690298507462687
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.04214636108443781,
+   "train_acc": 0.9970858895705521,
+   "test_acc": 0.9992537313432835
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.010267250709509923,
+   "train_acc": 0.9998466257668711,
+   "test_acc": 0.9985074626865672
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.004528910546146471,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.003168868716589055,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.002012831034521612,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.0018472013178001518,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.001337855517367141,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 9,
+   "train_loss": 0.001097273623693643,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 10,
+   "train_loss": 0.0031647215871586022,
+   "train_acc": 0.9996932515337423,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 11,
+   "train_loss": 0.0017499583813310401,
+   "train_acc": 0.9998466257668711,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 12,
+   "train_loss": 0.0010190859611254712,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 13,
+   "train_loss": 0.0008020757528970395,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 14,
+   "train_loss": 0.0006959544577595829,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 15,
+   "train_loss": 0.0007318453030857869,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 16,
+   "train_loss": 0.0006589261750673498,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 17,
+   "train_loss": 0.0006603776046612009,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 18,
+   "train_loss": 0.0005504044404887577,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 19,
+   "train_loss": 0.0005771706348565047,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 20,
+   "train_loss": 0.0005406484994865908,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  }
+ ],
+ "noise": {
+  "kind": "drift",
+  "acc_by_snr": {
+   "10.0": 0.5298507462686567,
+   "0.0": 0.1787313432835821
+  }
+ },
+ "run_id": "ds_cnn_drift_seed1"
+}

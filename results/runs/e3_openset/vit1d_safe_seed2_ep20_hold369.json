@@ -1,0 +1,223 @@
+{
+ "cfg": {
+  "model": "vit1d",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "seed": 2,
+  "epochs": 20,
+  "holdout_classes": [
+   3,
+   6,
+   9
+  ]
+ },
+ "data_meta": {
+  "dataset": "cwru",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "task": "10class",
+  "classes": [
+   "normal",
+   "ball_007",
+   "ball_014",
+   "ball_021",
+   "inner_007",
+   "inner_014",
+   "inner_021",
+   "outer_007",
+   "outer_014",
+   "outer_021"
+  ],
+  "seed": 0,
+  "n_per_class": null,
+  "file_ids": [
+   "097.mat",
+   "098.mat",
+   "099.mat",
+   "100.mat",
+   "105.mat",
+   "106.mat",
+   "107.mat",
+   "108.mat",
+   "118.mat",
+   "119.mat",
+   "120.mat",
+   "121.mat",
+   "130.mat",
+   "131.mat",
+   "132.mat",
+   "133.mat",
+   "169.mat",
+   "170.mat",
+   "171.mat",
+   "172.mat",
+   "185.mat",
+   "186.mat",
+   "187.mat",
+   "188.mat",
+   "197.mat",
+   "198.mat",
+   "199.mat",
+   "200.mat",
+   "209.mat",
+   "210.mat",
+   "211.mat",
+   "212.mat",
+   "222.mat",
+   "223.mat",
+   "224.mat",
+   "225.mat",
+   "234.mat",
+   "235.mat",
+   "236.mat",
+   "237.mat"
+  ],
+  "n_train": 6520,
+  "n_test": 2680
+ },
+ "n_params": 139655,
+ "n_train": 4564,
+ "test_acc": 0.9994669509594882,
+ "best_test_acc": 0.9994669509594882,
+ "train_time_s": 32.28,
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 0.6789823042377372,
+   "train_acc": 0.7911919368974584,
+   "test_acc": 0.9866737739872068
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.03892410028559351,
+   "train_acc": 0.997589833479404,
+   "test_acc": 0.997867803837953
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.026849928079377028,
+   "train_acc": 0.9938650306748467,
+   "test_acc": 0.9984008528784648
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.014877115330992693,
+   "train_acc": 0.9967134092900964,
+   "test_acc": 0.9909381663113006
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.015642953553383125,
+   "train_acc": 0.9971516213847502,
+   "test_acc": 0.9669509594882729
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.09403022871116841,
+   "train_acc": 0.9763365468886941,
+   "test_acc": 0.997867803837953
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.00799527416237541,
+   "train_acc": 0.9991235758106923,
+   "test_acc": 0.9994669509594882
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.002759955280217996,
+   "train_acc": 1.0,
+   "test_acc": 0.9994669509594882
+  },
+  {
+   "epoch": 9,
+   "train_loss": 0.0019823566324417914,
+   "train_acc": 1.0,
+   "test_acc": 0.9994669509594882
+  },
+  {
+   "epoch": 10,
+   "train_loss": 0.001663710542760241,
+   "train_acc": 1.0,
+   "test_acc": 0.9994669509594882
+  },
+  {
+   "epoch": 11,
+   "train_loss": 0.0014951764510031937,
+   "train_acc": 1.0,
+   "test_acc": 0.9994669509594882
+  },
+  {
+   "epoch": 12,
+   "train_loss": 0.0013716149882157965,
+   "train_acc": 1.0,
+   "test_acc": 0.9994669509594882
+  },
+  {
+   "epoch": 13,
+   "train_loss": 0.0012735056858811785,
+   "train_acc": 1.0,
+   "test_acc": 0.9994669509594882
+  },
+  {
+   "epoch": 14,
+   "train_loss": 0.0012108548797379712,
+   "train_acc": 1.0,
+   "test_acc": 0.9994669509594882
+  },
+  {
+   "epoch": 15,
+   "train_loss": 0.001140253736509384,
+   "train_acc": 1.0,
+   "test_acc": 0.9994669509594882
+  },
+  {
+   "epoch": 16,
+   "train_loss": 0.00111417974764522,
+   "train_acc": 1.0,
+   "test_acc": 0.9994669509594882
+  },
+  {
+   "epoch": 17,
+   "train_loss": 0.00109105523982584,
+   "train_acc": 1.0,
+   "test_acc": 0.9994669509594882
+  },
+  {
+   "epoch": 18,
+   "train_loss": 0.001079551991496454,
+   "train_acc": 1.0,
+   "test_acc": 0.9994669509594882
+  },
+  {
+   "epoch": 19,
+   "train_loss": 0.0010690595281263853,
+   "train_acc": 1.0,
+   "test_acc": 0.9994669509594882
+  },
+  {
+   "epoch": 20,
+   "train_loss": 0.0010656253808144541,
+   "train_acc": 1.0,
+   "test_acc": 0.9994669509594882
+  }
+ ],
+ "openset": {
+  "holdout_classes": [
+   3,
+   6,
+   9
+  ],
+  "n_known_test": 1876,
+  "n_unknown_test": 804,
+  "auroc": 0.9690626027644295,
+  "tpr_at_95fpr": 0.8731343283582089,
+  "acc_at_reject_5pct": 0.9498933901918977,
+  "known_conf_mean": 0.9985957741737366,
+  "unknown_conf_mean": 0.906040608882904,
+  "threshold_q05": 0.997914731502533
+ },
+ "run_id": "vit1d_safe_seed2_ep20_hold369"
+}

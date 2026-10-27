@@ -1,0 +1,229 @@
+{
+ "cfg": {
+  "dataset": "cwru",
+  "task": "10class",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "seed": 0,
+  "model": "ds_cnn",
+  "epochs": 20,
+  "batch": 128,
+  "lr": 0.002,
+  "wd": 0.0001,
+  "device": "mps",
+  "input": "raw",
+  "n_per_class": null,
+  "holdout_classes": null,
+  "noise_snr": null,
+  "noise_snrs": [
+   10.0,
+   0.0
+  ],
+  "stem": null,
+  "train_noise_lo": null,
+  "train_noise_hi": null,
+  "noise_kind": "drift",
+  "out": null
+ },
+ "data_meta": {
+  "dataset": "cwru",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "task": "10class",
+  "classes": [
+   "normal",
+   "ball_007",
+   "ball_014",
+   "ball_021",
+   "inner_007",
+   "inner_014",
+   "inner_021",
+   "outer_007",
+   "outer_014",
+   "outer_021"
+  ],
+  "seed": 0,
+  "n_per_class": null,
+  "file_ids": [
+   "097.mat",
+   "098.mat",
+   "099.mat",
+   "100.mat",
+   "105.mat",
+   "106.mat",
+   "107.mat",
+   "108.mat",
+   "118.mat",
+   "119.mat",
+   "120.mat",
+   "121.mat",
+   "130.mat",
+   "131.mat",
+   "132.mat",
+   "133.mat",
+   "169.mat",
+   "170.mat",
+   "171.mat",
+   "172.mat",
+   "185.mat",
+   "186.mat",
+   "187.mat",
+   "188.mat",
+   "197.mat",
+   "198.mat",
+   "199.mat",
+   "200.mat",
+   "209.mat",
+   "210.mat",
+   "211.mat",
+   "212.mat",
+   "222.mat",
+   "223.mat",
+   "224.mat",
+   "225.mat",
+   "234.mat",
+   "235.mat",
+   "236.mat",
+   "237.mat"
+  ],
+  "n_train": 6520,
+  "n_test": 2680
+ },
+ "n_params": 69642,
+ "n_train": 6520,
+ "test_acc": 1.0,
+ "best_test_acc": 1.0,
+ "train_time_s": 57.47,
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 0.7919630819303126,
+   "train_acc": 0.7958588957055215,
+   "test_acc": 0.9679104477611941
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.0445463000676749,
+   "train_acc": 0.9955521472392638,
+   "test_acc": 0.9970149253731343
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.012189774342635474,
+   "train_acc": 0.9993865030674847,
+   "test_acc": 0.9992537313432835
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.005607689009762249,
+   "train_acc": 0.9998466257668711,
+   "test_acc": 0.9992537313432835
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.005398947501018003,
+   "train_acc": 0.9995398773006134,
+   "test_acc": 0.9888059701492538
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.004032516877732577,
+   "train_acc": 0.9998466257668711,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.0019308651091839454,
+   "train_acc": 1.0,
+   "test_acc": 0.9992537313432835
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.0013567903524756065,
+   "train_acc": 1.0,
+   "test_acc": 0.9988805970149254
+  },
+  {
+   "epoch": 9,
+   "train_loss": 0.0011140847853613458,
+   "train_acc": 1.0,
+   "test_acc": 0.9988805970149254
+  },
+  {
+   "epoch": 10,
+   "train_loss": 0.000942229705454176,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 11,
+   "train_loss": 0.0009646482980650124,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 12,
+   "train_loss": 0.0008583469226373576,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 13,
+   "train_loss": 0.0007329205300321837,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 14,
+   "train_loss": 0.0006229694646303227,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 15,
+   "train_loss": 0.0005739558643827135,
+   "train_acc": 1.0,
+   "test_acc": 0.9996268656716418
+  },
+  {
+   "epoch": 16,
+   "train_loss": 0.0006014490188342274,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 17,
+   "train_loss": 0.0005642777268112025,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 18,
+   "train_loss": 0.0005718102462252637,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 19,
+   "train_loss": 0.0005184477602240224,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 20,
+   "train_loss": 0.0005778848820657361,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  }
+ ],
+ "noise": {
+  "kind": "drift",
+  "acc_by_snr": {
+   "10.0": 0.5597014925373134,
+   "0.0": 0.19776119402985073
+  }
+ },
+ "run_id": "ds_cnn_drift_seed0"
+}

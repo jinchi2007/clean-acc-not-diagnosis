@@ -1,0 +1,126 @@
+{
+ "cfg": {
+  "dataset": "paderborn",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "seed": 0,
+  "model": "ticnn",
+  "epochs": 15,
+  "batch": 128,
+  "lr": 0.002,
+  "wd": 0.0001,
+  "device": "mps",
+  "noise_snrs": [
+   10.0,
+   5.0,
+   0.0
+  ]
+ },
+ "n_params": 82882,
+ "n_train": 60000,
+ "test_acc": 0.9759,
+ "best_test_acc": 0.9759,
+ "train_time_s": 132.13,
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 0.15977347826162974,
+   "train_acc": 0.9360333333333334,
+   "monitor_test_acc": 0.92225
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.10166185940504074,
+   "train_acc": 0.9611833333333333,
+   "monitor_test_acc": 0.958
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.07965726689894995,
+   "train_acc": 0.9700833333333333,
+   "monitor_test_acc": 0.95975
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.06458282626072566,
+   "train_acc": 0.97535,
+   "monitor_test_acc": 0.969
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.05614940226972103,
+   "train_acc": 0.9790333333333333,
+   "monitor_test_acc": 0.96925
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.04277842836578687,
+   "train_acc": 0.9838,
+   "monitor_test_acc": 0.9575
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.03607031596402327,
+   "train_acc": 0.9869,
+   "monitor_test_acc": 0.96825
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.02471441804567973,
+   "train_acc": 0.99085,
+   "monitor_test_acc": 0.959
+  },
+  {
+   "epoch": 9,
+   "train_loss": 0.01959751778865854,
+   "train_acc": 0.9930333333333333,
+   "monitor_test_acc": 0.968
+  },
+  {
+   "epoch": 10,
+   "train_loss": 0.012500135967011253,
+   "train_acc": 0.9959333333333333,
+   "monitor_test_acc": 0.96975
+  },
+  {
+   "epoch": 11,
+   "train_loss": 0.007128073059084515,
+   "train_acc": 0.9981666666666666,
+   "monitor_test_acc": 0.96925
+  },
+  {
+   "epoch": 12,
+   "train_loss": 0.005528601863173147,
+   "train_acc": 0.9987166666666667,
+   "monitor_test_acc": 0.97175
+  },
+  {
+   "epoch": 13,
+   "train_loss": 0.004748919688227276,
+   "train_acc": 0.9986666666666667,
+   "monitor_test_acc": 0.9705
+  },
+  {
+   "epoch": 14,
+   "train_loss": 0.0031913712793961166,
+   "train_acc": 0.9994666666666666,
+   "monitor_test_acc": 0.97175
+  },
+  {
+   "epoch": 15,
+   "train_loss": 0.0027692730001794793,
+   "train_acc": 0.9996166666666667,
+   "monitor_test_acc": 0.97075
+  }
+ ],
+ "noise": {
+  "kind": "gaussian",
+  "acc_by_snr": {
+   "10.0": 0.9066,
+   "5.0": 0.84275,
+   "0.0": 0.79425
+  }
+ },
+ "run_id": "ticnn_safe_seed0_ep15_plain"
+}

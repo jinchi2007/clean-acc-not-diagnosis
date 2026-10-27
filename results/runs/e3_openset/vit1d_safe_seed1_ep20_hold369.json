@@ -1,0 +1,223 @@
+{
+ "cfg": {
+  "model": "vit1d",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "seed": 1,
+  "epochs": 20,
+  "holdout_classes": [
+   3,
+   6,
+   9
+  ]
+ },
+ "data_meta": {
+  "dataset": "cwru",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "task": "10class",
+  "classes": [
+   "normal",
+   "ball_007",
+   "ball_014",
+   "ball_021",
+   "inner_007",
+   "inner_014",
+   "inner_021",
+   "outer_007",
+   "outer_014",
+   "outer_021"
+  ],
+  "seed": 0,
+  "n_per_class": null,
+  "file_ids": [
+   "097.mat",
+   "098.mat",
+   "099.mat",
+   "100.mat",
+   "105.mat",
+   "106.mat",
+   "107.mat",
+   "108.mat",
+   "118.mat",
+   "119.mat",
+   "120.mat",
+   "121.mat",
+   "130.mat",
+   "131.mat",
+   "132.mat",
+   "133.mat",
+   "169.mat",
+   "170.mat",
+   "171.mat",
+   "172.mat",
+   "185.mat",
+   "186.mat",
+   "187.mat",
+   "188.mat",
+   "197.mat",
+   "198.mat",
+   "199.mat",
+   "200.mat",
+   "209.mat",
+   "210.mat",
+   "211.mat",
+   "212.mat",
+   "222.mat",
+   "223.mat",
+   "224.mat",
+   "225.mat",
+   "234.mat",
+   "235.mat",
+   "236.mat",
+   "237.mat"
+  ],
+  "n_train": 6520,
+  "n_test": 2680
+ },
+ "n_params": 139655,
+ "n_train": 4564,
+ "test_acc": 1.0,
+ "best_test_acc": 1.0,
+ "train_time_s": 35.22,
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 0.6202664261424259,
+   "train_acc": 0.8181419807186678,
+   "test_acc": 0.988272921108742
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.04673283424319848,
+   "train_acc": 0.9914548641542507,
+   "test_acc": 0.9984008528784648
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.016957004320310668,
+   "train_acc": 0.9969325153374233,
+   "test_acc": 0.9968017057569296
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.008984302363205802,
+   "train_acc": 0.9986853637160386,
+   "test_acc": 0.9984008528784648
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.09245085895818958,
+   "train_acc": 0.9734881682734443,
+   "test_acc": 0.976545842217484
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.029068753433860284,
+   "train_acc": 0.9958369851007888,
+   "test_acc": 0.9952025586353944
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.006790100747236197,
+   "train_acc": 0.9986853637160386,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.002534157689477135,
+   "train_acc": 0.9995617879053462,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 9,
+   "train_loss": 0.0015526383412850075,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 10,
+   "train_loss": 0.0012683921178727755,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 11,
+   "train_loss": 0.0011970866685790335,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 12,
+   "train_loss": 0.0010727690782775085,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 13,
+   "train_loss": 0.0010119524519518345,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 14,
+   "train_loss": 0.0009595724404279361,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 15,
+   "train_loss": 0.000923515322724705,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 16,
+   "train_loss": 0.000894346704386586,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 17,
+   "train_loss": 0.0008722228259986836,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 18,
+   "train_loss": 0.0008645218234439034,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 19,
+   "train_loss": 0.0008623413363060246,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 20,
+   "train_loss": 0.0008555174567801984,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  }
+ ],
+ "openset": {
+  "holdout_classes": [
+   3,
+   6,
+   9
+  ],
+  "n_known_test": 1876,
+  "n_unknown_test": 804,
+  "auroc": 0.9761447294444622,
+  "tpr_at_95fpr": 0.8992537313432836,
+  "acc_at_reject_5pct": 0.9498933901918977,
+  "known_conf_mean": 0.9987857341766357,
+  "unknown_conf_mean": 0.8888780474662781,
+  "threshold_q05": 0.9984325170516968
+ },
+ "run_id": "vit1d_safe_seed1_ep20_hold369"
+}
