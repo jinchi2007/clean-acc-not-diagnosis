@@ -4,9 +4,9 @@
 
 Table~\ref{tab:sat} and Figure~\ref{fig:sat} report the four protocols over all eight models. Under the leakage-safe protocol seven of eight exceed 99.6\%, and the entire span is 2.5 points, from LeNet1D at 0.975 to MCNN at 1.000. The heat map makes the point visually: the two leftmost columns are a single colour.
 
-Changing the split, by contrast, moves everything. The cross-load protocol costs 5 to 13 points per model (WDCNN 0.948, LeNet1D 0.856), i.e.\ 10 points on average, and it is the only column with visible structure. WDCNN is the best model there although it is sixth on clean data; the three narrow-kernel convolutional backbones (MCNN, ResNet1D, DS-CNN) all land within half a point of 0.899, which we read as a ceiling of the 10-class task across loads rather than as a property of the three models. The recording-disjoint column sits in between and carries the largest seed spread (WDCNN $0.955\pm0.052$), so we treat it as a consistency check rather than a ranking.
+Changing the split, by contrast, moves everything. The cross-load protocol costs 5 to 13 points per model (WDCNN 0.948, LeNet1D 0.856), i.e.\ 10 points on average, and it is the only column with visible structure. WDCNN is the best model there although it is only fifth under the leakage-safe protocol; the three narrow-kernel convolutional backbones (MCNN, ResNet1D, DS-CNN) all land within half a point of 0.899, which we read as a ceiling of the 10-class task across loads rather than as a property of the three models. The recording-disjoint column sits in between and carries the largest seed spread (WDCNN $0.955\pm0.052$), so we treat it as a consistency check rather than a ranking.
 
-Leakage is a small effect. Leaky is above safe for all eight models, but by at most 0.63 points (LeNet1D 0.982 vs.\ 0.975) and by 0.3 points or less for six of them---an order of magnitude below what recent critiques of vibration benchmarks imply~\citep{phme2026,ssrn2024}. The protocol choice (leaky $\rightarrow$ cross-load) costs 5--13 points, i.e.\ 20 to 40 times more than leakage. The same comparison in a 20-windows-per-class regime, where the overlap removes a much larger fraction of the training windows, gives a mean leaky-minus-safe gap of $+0.4$ points (four models, two seeds, at most $+0.9$ for WDCNN); that regime reduces accuracy from 0.38 (LeNet1D) to 0.98 (MCNN) and thus exposes model differences that full data hides, but leakage remains negligible there too.
+Leakage is a small effect. Leaky is above safe for all eight models, but by at most 0.63 points (LeNet1D 0.982 vs.\ 0.975) and by 0.3 points or less for seven of them---an order of magnitude below what recent critiques of vibration benchmarks imply~\citep{phme2026,ssrn2024}. The protocol choice (leaky $\rightarrow$ cross-load) costs 5--13 points, i.e.\ 20 to 40 times more than leakage. The same comparison in a 20-windows-per-class regime, where the overlap removes a much larger fraction of the training windows, gives a mean leaky-minus-safe gap of $+0.4$ points (four models, two seeds, at most $+0.9$ for WDCNN); that regime reduces accuracy from 0.38 (LeNet1D) to 0.98 (MCNN) and thus exposes model differences that full data hides, but leakage remains negligible there too.
 
 \textbf{Finding 1.} Every lightweight model reaches $\geq 97.5\%$ under a leakage-safe protocol. The benchmark is saturated: the eight models span 2.5 points, less than the effect of changing the split, so clean CWRU accuracy cannot rank architectures or support the architectural claims in the literature.
 
@@ -14,17 +14,17 @@ Leakage is a small effect. Leaky is above safe for all eight models, but by at m
 
 \begin{table}[t]
 \centering
-\caption{Clean test accuracy (mean$\pm$std over two seeds, 20 epochs, 10-class CWRU) under four split protocols. \emph{leaky}: random window-level split with 50\% overlap between neighbouring windows; \emph{safe}: recording-level split with a $w/2$ guard band and zero shared sampling points; \emph{cross-load}: train on loads 0--2, test on load 3; \emph{recording-disjoint}: train and test on disjoint recordings. Best per column in bold.}
+\caption{Clean test accuracy (mean$\pm$std over two seeds, 20 epochs, 10-class CWRU) under four split protocols. \emph{leaky}: random window-level split with 50\% overlap between neighbouring windows; \emph{safe}: recording-level split with a $w/2$ guard band and zero shared sampling points; \emph{cross-load}: train on loads 0--2, test on load 3; \emph{recording-disjoint}: train and test on disjoint recordings. Best value per column in bold; columns whose maximum is shared by several models are left unbolded.}
 \label{tab:sat}
 \begin{tabular}{lcccc}
 \toprule
 model & leaky & safe & cross-load & recording-disjoint\\
 \midrule
 WDCNN        & .999$\pm$.000 & .997$\pm$.001 & \best{.948}$\pm$.003 & .955$\pm$.052\\
-TICNN        & 1.000$\pm$.000 & \best{1.000}$\pm$.000 & .911$\pm$.013 & .997$\pm$.005\\
+TICNN        & 1.000$\pm$.000 & 1.000$\pm$.000 & .911$\pm$.013 & .997$\pm$.005\\
 MCNN         & 1.000$\pm$.000 & 1.000$\pm$.000 & .900$\pm$.000 & .997$\pm$.004\\
 ResNet1D     & 1.000$\pm$.000 & 1.000$\pm$.000 & .899$\pm$.000 & .997$\pm$.002\\
-DS-CNN       & 1.000$\pm$.000 & 1.000$\pm$.000 & .900$\pm$.001 & .998$\pm$.003\\
+DS-CNN       & 1.000$\pm$.000 & 1.000$\pm$.000 & .900$\pm$.001 & \best{.998}$\pm$.003\\
 LeNet1D      & .982$\pm$.003 & .975$\pm$.002 & .856$\pm$.002 & .954$\pm$.048\\
 ViT1D        & .998$\pm$.001 & .996$\pm$.002 & .894$\pm$.009 & .986$\pm$.012\\
 MLP-Mixer1D  & .999$\pm$.001 & .996$\pm$.001 & .870$\pm$.008 & .953$\pm$.050\\
@@ -49,7 +49,7 @@ Table~\ref{tab:e2} reports the same models evaluated on noisy test signals. The 
 
 \begin{table*}[t]
 \centering
-\caption{Clean-trained models, test accuracy (mean over 3 seeds) at six SNRs. “Clean” is the uncorrupted test set. Standard deviations at 10\,dB are given in parentheses; the full per-seed table accompanies the released results.}
+\caption{Clean-trained models, test accuracy (mean over 3 seeds) at six SNRs. “Clean” is the uncorrupted test set. Standard deviations at 10\,dB are given in parentheses; the highest and the lowest 10\,dB entry are bold. The full per-seed table accompanies the released results.}
 \label{tab:e2}
 \begin{tabular}{lrrrrrrr}
 \toprule
@@ -70,7 +70,7 @@ ResNet1D    & 241{,}322 & .9999 & .8051 & \best{.4271} (.012) & .2646 & .1357 & 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{../figures/fig2_noise.pdf}
-\caption{Test accuracy versus SNR for the eight architectures. (a) Trained on clean data: at 10\,dB the models span 55 points and the ordering is unrelated to clean accuracy. (b) Trained with per-batch noise augmentation: the curves collapse onto a narrow band above 0.95 down to 10\,dB. Shaded regions are $\pm1$ std over three seeds.}
+\caption{Test accuracy versus SNR for the eight architectures. (a) Trained on clean data: at 10\,dB the models span 55 points and the ordering is unrelated to clean accuracy. (b) Trained with per-batch noise augmentation: at 10\,dB the curves collapse into a band of 0.87--1.00, i.e.\ from a 55-point spread to 13 points. Shaded regions are $\pm1$ std over three seeds.}
 \label{fig:noise}
 \end{figure*}
 
@@ -78,7 +78,7 @@ ResNet1D    & 241{,}322 & .9999 & .8051 & \best{.4271} (.012) & .2646 & .1357 & 
 
 Table~\ref{tab:e4} repeats the matrix with one change: during training, each mini-batch draws a random SNR from $U[0,15]$\,dB.
 
-\textbf{Finding 4.} Augmentation compresses the 10\,dB spread from 55 to 13 points and lifts the worst model (LeNet1D) from 41\% to 87\%. Averaged over the 24 (model, seed) pairs, 10\,dB accuracy rises from .699 to .967 ($+26.8$ points, Holm-corrected $p<10^{-6}$), 5\,dB from .452 to .970 and 0\,dB from .238 to .687 (Table~\ref{tab:wilcoxon}). The price is 5.4 points of clean accuracy, concentrated in the small and deep models; the two wide-kernel models lose at most 2 points. This is a better trade than any architectural change we tried.
+\textbf{Finding 4.} Augmentation compresses the 10\,dB spread from 55 to 13 points and lifts the worst clean-trained model at 10\,dB (DS-CNN) from 43\% to 95\%, and even the weakest augmented model reaches 87\%. Averaged over the 24 (model, seed) pairs, 10\,dB accuracy rises from .699 to .967 ($+26.8$ points, Holm-corrected $p<10^{-6}$), 5\,dB from .452 to .970 and 0\,dB from .238 to .687 (Table~\ref{tab:wilcoxon}). The price is 5.4 points of clean accuracy, concentrated in the small and deep models; the two wide-kernel models lose at most 2 points. This is a better trade than any architectural change we tried.
 
 \begin{table*}[t]
 \centering
@@ -95,7 +95,7 @@ MLP-Mixer1D & .9938 & .9930 & .9920 & .9854 & .9335 & .6066\\
 MCNN        & .9121 & .9357 & .9831 & .9846 & .4362 & .2032\\
 DS-CNN      & .9029 & .9299 & .9693 & .9471 & .4772 & .1624\\
 ResNet1D    & .8975 & .9073 & .9450 & .9623 & .3704 & .2188\\
-LeNet1D     & .8428 & .8505 & .8672 & .9005 & .6124 & .2437\\
+LeNet1D     & .8428 & .8505 & \worst{.8672} & .9005 & .6124 & .2437\\
 \bottomrule
 \end{tabular}
 \end{table*}

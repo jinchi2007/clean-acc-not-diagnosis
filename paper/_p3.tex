@@ -9,7 +9,7 @@ Table~\ref{tab:openset} reports rejection quality. Averaged over the 48 runs, AU
 
 \begin{table}[t]
 \centering
-\caption{Open-set rejection: three of ten classes withheld, two holdout configurations $\times$ three seeds.}
+\caption{Open-set rejection: three of ten classes withheld, two holdout configurations $\times$ three seeds. The best mean AUROC, and the best and the worst mean TPR, are bold.}
 \label{tab:openset}
 \begin{tabular}{lrrrrrr}
 \toprule
@@ -59,7 +59,7 @@ trade off.
 \centering
 \caption{Open-set rejection under noise-augmented training (32 runs, two
 seeds). $\Delta$ is relative to the clean-trained model on the same holdout configurations
-(Table~\ref{tab:openset}); means are over the eight models. Best value per column in bold.}
+(Table~\ref{tab:openset}); means are over the eight models. In each of the four metric columns the best value is bold.}
 \label{tab:opensetaug}
 \begin{tabular}{lrrrrrr}
 \toprule
@@ -67,10 +67,10 @@ seeds). $\Delta$ is relative to the clean-trained model on the same holdout conf
 \cmidrule(lr){2-4}\cmidrule(lr){5-7}
 model & clean & +aug & $\Delta$ & clean & +aug & $\Delta$ \\
 \midrule
-WDCNN       & .837 & .822 & $-0.015$ & .121 & \best{.173} & $+0.052$ \\
+WDCNN       & .837 & .822 & $-0.015$ & .121 & .173 & $+0.052$ \\
 TICNN       & .908 & .833 & $-0.075$ & .511 & .338 & $-0.173$ \\
 MCNN        & .961 & .846 & $-0.115$ & .807 & .541 & $-0.267$ \\
-ResNet1D    & .969 & .857 & $-0.112$ & .829 & .548 & $-0.281$ \\
+ResNet1D    & .969 & \best{.857} & $-0.112$ & .829 & \best{.548} & $-0.281$ \\
 DS-CNN      & \best{.972} & .644 & $-0.328$ & \best{.874} & .173 & $-0.702$ \\
 LeNet1D     & .785 & .743 & $-0.041$ & .438 & .463 & $+0.025$ \\
 ViT1D       & .900 & .829 & $-0.070$ & .564 & .393 & $-0.171$ \\
@@ -91,7 +91,7 @@ practitioner who needs both must decide it at the decision layer rather than in 
 
 White Gaussian noise is the field's default probe, but real bearing signals also carry impulsive (tonal), harmonic (electrical interference) and drift (sensor or thermal) disturbances. Table~\ref{tab:noisefam} repeats the 10\,dB and 0\,dB evaluation with three such families, using the four models that span the range of our results; the families are defined in Section~3.4 and the clean-trained Gaussian column is repeated for reference.
 
-Three things change. First, broadband Gaussian noise turns out to be the \emph{hardest} of the four families for the two narrow-kernel CNNs, but not for the other two: under impulsive noise ResNet1D and DS-CNN reach 0.970 and 0.995 at 10\,dB, i.e.\ 54 and 57 points above their own Gaussian accuracy, and at 0\,dB DS-CNN keeps 0.929 against 0.228. Sparse transients are statistically closer to the impulsive excitation of a bearing fault than broadband noise is, so there is nothing to suppress. Second, \emph{low-frequency drift} is the one family that separates the models sharply: ViT1D falls 28 points below its Gaussian level (0.474) and DS-CNN reaches only 0.545, while WDCNN loses nothing under drift (0.993 at 10\,dB, 20 points above its Gaussian level) and ResNet1D gains 33 points. This is the band-pass reading of Section~4.4 again: a wide first kernel removes slow wander, a narrow one maps it onto the fault bands. Third, the ordering induced by the four families is different in every case: DS-CNN is the best model under impulsive noise and among the worst under drift, WDCNN is first under harmonic and drift interference but only third under impulsive noise, and the Gaussian order (WDCNN $>$ ViT1D $>$ DS-CNN $>$ ResNet1D) survives in none of them.
+Three things change. First, broadband Gaussian noise turns out to be the \emph{hardest} of the four families for the two narrow-kernel CNNs, but not for the other two: under impulsive noise ResNet1D and DS-CNN reach 0.970 and 0.995 at 10\,dB, i.e.\ 54 and 57 points above their own Gaussian accuracy, and at 0\,dB DS-CNN keeps 0.929 against 0.228. Sparse transients are statistically closer to the impulsive excitation of a bearing fault than broadband noise is, so there is nothing to suppress. Second, \emph{low-frequency drift} is the one family that separates the models sharply: ViT1D falls 28 points below its Gaussian level (0.474) and DS-CNN reaches only 0.545, while WDCNN loses nothing under drift (0.993 at 10\,dB, 20 points above its Gaussian level) and ResNet1D gains 33 points. This is the band-pass reading of Section~4.4 again: a wide first kernel removes slow wander, a narrow one maps it onto the fault bands. Third, the ordering induced by the four families is different in every case: DS-CNN is the best model under impulsive noise and among the worst under drift, WDCNN is first under harmonic and drift interference but is beaten under impulsive noise (second at 10\,dB, third at 0\,dB), and the Gaussian order (WDCNN $>$ ViT1D $>$ DS-CNN $>$ ResNet1D) survives in none of them.
 
 \textbf{Finding 8.} A single Gaussian probe does not identify a robust model. Which noise family hurts most is architecture-dependent---drift for ViT1D, broadband Gaussian for the two narrow-kernel CNNs, and for WDCNN no single family is decisive (0.952--0.993 across the four)---the ranking it induces changes with the family, and a robustness claim that does not name the family is unfalsifiable. We also note one instability that a single seed would hide: WDCNN under drift at 0\,dB averages 0.60 with a standard deviation of 0.33 across two seeds, so its apparent robustness there is not reliable.
 
@@ -200,7 +200,7 @@ CWRU clean test accuracy has been at the ceiling for years, and every model in o
 \subsection{Two different robustness mechanisms}
 Our ablation separates two mechanisms that the literature usually conflates. The first is a training-distribution effect: exposing the model to noisy inputs makes it invariant to them, and this alone is worth $+26.8$ points at 10\,dB averaged over eight architectures. The second is an architectural effect: a wide multi-channel front-end maps the raw window through a bank of learnable band-pass filters before the backbone sees it, which is worth up to $+52$ points for a narrow-kernel backbone and essentially nothing for a backbone that already mixes the whole window. The two are complementary but not equivalent: on the same backbone the stem costs 1.1 points of clean accuracy where augmentation costs 11.1, the stem adds 1.1\% of the parameters, and augmentation is free in parameters but still helps the models the stem cannot fix.
 
-That a wide first kernel helps under noise is not new—WDCNN made it standard in 2017—but our results show that the effective part of the design is the \emph{number of parallel channels}, not the kernel width. A single 64-sample kernel has 320 parameters and buys $+34$ points at 10\,dB but destroys clean accuracy, because one filter has to serve every fault frequency; eight parallel filters at the same width give each of the (three fault locations $\times$ three diameters) combinations its own band. Widening the kernel further adds little: $k=128$ buys another 2.7 points for a 25\% larger front-end.
+That a wide first kernel helps under noise is not new—WDCNN made it standard in 2017—but our results show that the effective part of the design is the \emph{number of parallel channels}, not the kernel width. A single 64-sample kernel adds only 66 parameters and buys $+34$ points at 10\,dB but destroys clean accuracy, because one filter has to serve every fault frequency. Eight parallel filters at the same width cover several resonance bands at once, which is what the clean-accuracy recovery in Table~\ref{tab:stem} measures. Widening the kernel further adds little: $k=128$ buys another 2.7 points for 24\% more parameters.
 
 There is a physical reading of this. At 12\,kHz, 64 samples span 5.3\,ms; the ball-pass frequencies of a 6205-2RS bearing at the CWRU speeds are roughly 107\,Hz (BPFO, 9.3\,ms) and 162\,Hz (BPFI, 6.2\,ms) \citep{randall2011tutorial}. A single wide kernel is comparable to one period of the fault signature, so it can act as a matched filter for one resonance band only; a bank of them covers several. Noise, which is broadband, is suppressed by the band-pass character while the periodic fault signature passes.
 
