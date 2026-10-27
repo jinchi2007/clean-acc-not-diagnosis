@@ -11,6 +11,9 @@ __pycache__/
 
 # latex build products
 paper/.tcache/
+paper/.texhome/
+# tectonic format cache written under a throw-away HOME by earlier builds
+Library/
 paper/main.tex
 paper/main.aux
 paper/main.bbl

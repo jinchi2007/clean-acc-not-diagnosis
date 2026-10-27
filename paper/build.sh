@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
-# Build the manuscript. Needs tectonic (https://tectonic-typesetting.github.io/),
-# either on PATH, at ../tools/tectonic, or given explicitly as $TECTONIC.
-# Falls back to xelatex if neither is present.
+# Build the manuscript with tectonic (https://tectonic-typesetting.github.io/).
+# Lookup order: $TECTONIC, tectonic on PATH, ../tools/tectonic, then xelatex.
+# Everything tectonic writes stays inside paper/ (main.tex, .tcache, .texhome).
 set -euo pipefail
 cd "$(dirname "$0")"
 cat _p1.tex _p2.tex _p3.tex > main.tex
-if [ -x "$TECTONIC" ]; then
-  : # honour an explicitly given binary
-elif command -v tectonic >/dev/null 2>&1; then
-  TECTONIC=tectonic
-elif [ -x ../tools/tectonic ]; then
-  TECTONIC=../tools/tectonic
-else
+BIN="${TECTONIC:-}"
+if [ -z "$BIN" ]; then
+  if command -v tectonic >/dev/null 2>&1; then BIN=tectonic
+  elif [ -x ../tools/tectonic ]; then BIN=../tools/tectonic
+  fi
+fi
+if [ -z "$BIN" ]; then
   echo "no tectonic found; trying xelatex" >&2
   xelatex -interaction=nonstopmode main.tex >/dev/null
   bibtex main >/dev/null || true
@@ -20,5 +20,8 @@ else
   echo "built main.pdf with xelatex"
   exit 0
 fi
-HOME="$(cd .. && pwd)" TECTONIC_CACHE_DIR="$PWD/.tcache" "$TECTONIC" -X compile main.tex --keep-logs
+# tectonic writes its format cache under $HOME/Library on macOS; give it a
+# throw-away HOME inside paper/ so a clone is never polluted by build by-products.
+mkdir -p .texhome
+HOME="$PWD/.texhome" TECTONIC_CACHE_DIR="$PWD/.tcache" "$BIN" -X compile main.tex --keep-logs
 echo "built main.pdf"
