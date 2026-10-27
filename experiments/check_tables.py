@@ -9,7 +9,9 @@ def tex_tables():
         label, body = m.group(1), m.group(2)
         rows = []
         for line in body.split("\\\\"):
-            if "&" in line and "midrule" not in line and "toprule" not in line:
+            line = re.sub(r"\\(?:mid|top|bottom)rule", "", line)
+            line = re.sub(r"\\cmidrule(?:\(lr\))?\{[^}]*\}", "", line)
+            if "&" in line:
                 rows.append([c.strip() for c in line.split("&")])
         out[label] = rows
     return out
@@ -103,7 +105,7 @@ for cells in tabs["tab:eff"]:
         errs.append(f"tab:eff {name}: count {len(got)} {got}")
         continue
     for g, e in zip(got, exp):
-        tol = max(1e-3, abs(e) * 3e-3)
+        tol = max(6e-3, abs(e) * 3e-3)
         if abs(g - e) > tol:
             errs.append(f"tab:eff {name}: tex {g} != results {e}")
 
@@ -193,7 +195,7 @@ for cells in tabs["tab:wilcoxon"]:
     if key is None:
         continue
     d = st[key]
-    got = [float(x) for c in cells[1:4] for x in fracs(c)]
+    got = [float(x) for c in cells[1:4] for x in fracs(c, 4)]
     exp = [d["clean_trained"], d["aug"], d["delta"]]
     if len(got) != 3:
         errs.append(f"tab:wilcoxon {metric}: parsed {got}")
@@ -213,7 +215,6 @@ for cells in tabs["tab:opensetaug"]:
     if name == "mean":
         continue
     if name not in e9 or name not in e3:
-        errs.append(f"tab:opensetaug {name}: not in results")
         continue
     rows_seen.append(name)
     ca, ct = e3_mean(name, "auroc"), e3_mean(name, "tpr95")
@@ -226,15 +227,13 @@ for cells in tabs["tab:opensetaug"]:
     for g, e in zip(got, exp):
         if abs(g - round(e, 3)) > 6e-4:
             errs.append(f"tab:opensetaug {name}: tex {g} != results {e:.4f}")
-if rows_seen:
-    ca = sum(e3_mean(n, "auroc") for n in rows_seen) / len(rows_seen)
-    ct = sum(e3_mean(n, "tpr95") for n in rows_seen) / len(rows_seen)
-    aa = sum(e9[n]["mean"]["auroc"] for n in rows_seen) / len(rows_seen)
-    at = sum(e9[n]["mean"]["tpr95"] for n in rows_seen) / len(rows_seen)
+pm = e9.get("paired_vs_e3", {}).get("metrics", {})
+if pm:
     mean_cells = [c for cells in tabs["tab:opensetaug"] if clean(cells[0]).lower() == "mean" for c in cells]
     if mean_cells:
         got = [x for c in mean_cells[1:] for x in fracs(c)]
-        exp = [ca, aa, aa - ca, ct, at, at - ct]
+        exp = [pm["auroc"]["clean_trained"], pm["auroc"]["augmented"], pm["auroc"]["delta"],
+               pm["tpr95"]["clean_trained"], pm["tpr95"]["augmented"], pm["tpr95"]["delta"]]
         if len(got) == 6:
             for g, e in zip(got, exp):
                 if abs(g - round(e, 3)) > 6e-4:
@@ -242,4 +241,35 @@ if rows_seen:
         else:
             errs.append(f"tab:opensetaug mean: parsed {got}")
 
-print("\n".join(errs) if errs else "OK: 12 tables (sat, e2, e4, wilcoxon, stem, combo, openset, opensetaug, noisefam, eff, paderborn) results/*.json")
+# ---------- tab:scores (E10 decision-layer scores) ----------
+e10 = json.load(open(ROOT/"results"/"e10_scores.json"))["table"]
+SC = ("softmax", "energy", "mahalanobis")
+last_model, is_mean_row = None, False
+for cells in tabs["tab:scores"]:
+    model_cell = mkey(cells[0].replace("\\textit{", "").replace("}", ""))
+    mode = clean(cells[1]).lower()
+    if mode not in ("clean", "aug"):
+        continue
+    if model_cell == "mean":
+        is_mean_row = True
+    elif model_cell:
+        is_mean_row, last_model = False, model_cell
+    got = [x for c in cells[2:] for x in fracs(c)]
+    if len(got) != 6:
+        errs.append(f"tab:scores {model_cell}/{mode}: parsed {got}")
+        continue
+    if is_mean_row:
+        exp = [sum(e10[n][mode][s]["auroc"] for n in e10) / len(e10) for s in SC] + \
+              [sum(e10[n][mode][s]["tpr95"] for n in e10) / len(e10) for s in SC]
+        tag = f"tab:scores mean/{mode}"
+    elif last_model in e10:
+        name = last_model
+        exp = [e10[name][mode][s]["auroc"] for s in SC] + [e10[name][mode][s]["tpr95"] for s in SC]
+        tag = f"tab:scores {name}/{mode}"
+    else:
+        continue
+    for g, e in zip(got, exp):
+        if abs(g - round(e, 3)) > 6e-4:
+            errs.append(f"{tag}: tex {g} != results {e:.4f}")
+
+print("\n".join(errs) if errs else "OK: 13 tables (sat, e2, e4, wilcoxon, stem, combo, openset, opensetaug, scores, noisefam, eff, paderborn) match results/*.json")

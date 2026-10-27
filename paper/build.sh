@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 # Build the manuscript. Needs tectonic (https://tectonic-typesetting.github.io/),
-# either on PATH or at ../tools/tectonic. Falls back to xelatex if present.
+# either on PATH, at ../tools/tectonic, or given explicitly as $TECTONIC.
+# Falls back to xelatex if neither is present.
 set -euo pipefail
 cd "$(dirname "$0")"
 cat _p1.tex _p2.tex _p3.tex > main.tex
-if command -v tectonic >/dev/null 2>&1; then
-  TECTONIC="${TECTONIC:-tectonic}"
+if [ -x "$TECTONIC" ]; then
+  : # honour an explicitly given binary
+elif command -v tectonic >/dev/null 2>&1; then
+  TECTONIC=tectonic
 elif [ -x ../tools/tectonic ]; then
   TECTONIC=../tools/tectonic
 else

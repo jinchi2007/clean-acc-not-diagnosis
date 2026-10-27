@@ -11,6 +11,7 @@ __pycache__/
 
 # latex build products
 paper/.tcache/
+paper/main.tex
 paper/main.aux
 paper/main.bbl
 paper/main.blg

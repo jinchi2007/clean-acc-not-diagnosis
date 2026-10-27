@@ -14,7 +14,7 @@ architecture.
 | Path | Contents |
 |---|---|
 | `code/` | data pipelines (CWRU, Paderborn), 8 model definitions, the single training entry point |
-| `experiments/` | one script per experiment E0--E9, plus `stats.py`, `figures.py`, `check_tables.py` |
+| `experiments/` | one script per experiment E0--E10, plus `stats.py`, `figures.py`, `check_tables.py` |
 | `results/` | aggregated tables (`*.json`, `*.md`) and every raw run under `results/runs/<grid>/<run_id>.json` |
 | `figures/` | vector PDFs and PNGs used in the paper |
 | `paper/` | LaTeX sources (`_p1.tex _p2.tex _p3.tex`), bibliography, compiled `main.pdf` |
@@ -34,6 +34,7 @@ architecture.
 | E7 efficiency | parameters and latency | 3,018--747,722 parameters, 3.7k--115k windows/s on Apple M5 (MPS) |
 | E8 Paderborn (16 runs) | second rig, two-class task | the inversion reproduces (Spearman rho = 0) and disappears under augmentation |
 | E9 open set + augmentation (32 runs) | rejection with augmented training | the recipe that buys robustness loses rejection: mean AUROC 0.899 -> 0.797, TPR at 5% FPR 0.570 -> 0.388 (paired Wilcoxon p = 5e-7 / 6e-3) |
+| E10 decision-layer scores (64 runs) | rejection scored three ways on the same networks | the rejection loss is mostly the softmax read-out: mean AUROC 0.953 clean / 0.940 augmented with a logit-space Mahalanobis score, so augmentation costs 0.013 instead of 0.103 |
 
 ## Reproducing
 
@@ -60,6 +61,7 @@ python experiments/e6_noise_types.py
 python experiments/e7_efficiency.py
 python experiments/e8_paderborn.py
 python experiments/e9_openset_aug.py --seeds 0,1 --epochs 20
+python experiments/e10_scores.py --seeds 0,1 --epochs 20
 
 # 4. tables, figures, and a cell-by-cell check of the manuscript tables
 python -m experiments.stats
@@ -71,7 +73,7 @@ bash paper/build.sh
 ```
 
 A single training run takes 8--84 s on a laptop-class accelerator (Apple M5, MPS
-backend); the full matrix is about 300 runs, i.e. a few hours.
+backend); the full matrix is about 370 runs, i.e. a few hours.
 
 ## Hardware and software
 

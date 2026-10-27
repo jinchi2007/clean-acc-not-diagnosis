@@ -96,6 +96,16 @@ def auroc(neg: np.ndarray, pos: np.ndarray) -> float:
 
 
 @torch.no_grad()
+def predict_logits(model: nn.Module, x: np.ndarray, device, batch: int = 512) -> np.ndarray:
+    model.eval()
+    out = []
+    for i in range(0, len(x), batch):
+        xb = torch.from_numpy(np.ascontiguousarray(x[i : i + batch])).to(device)
+        out.append(model(xb).cpu().numpy())
+    return np.concatenate(out, axis=0) if out else np.zeros((0, 1), dtype=np.float32)
+
+
+@torch.no_grad()
 def evaluate(model: nn.Module, x: np.ndarray, y: np.ndarray, device, batch: int = 512) -> float:
     if len(y) == 0:
         return float("nan")
@@ -245,6 +255,28 @@ def train_one(cfg: dict) -> dict:
             "unknown_conf_mean": float(conf_u.mean()),
             "threshold_q05": thr,
         }
+
+        # ---- decision-layer comparison (E10): same network, three scores
+        if cfg.get("score_eval"):
+            from code.scores import LogitMahalanobis, energy, softmax_max
+
+            lg_tr = predict_logits(model, x_train, device)
+            lg_k = predict_logits(model, x_known, device)
+            lg_u = predict_logits(model, x_unknown, device)
+            mah = LogitMahalanobis(lg_tr, y_train)
+            cand = {
+                "softmax": (softmax_max(lg_k), softmax_max(lg_u)),
+                "energy": (energy(lg_k), energy(lg_u)),
+                "mahalanobis": (mah.score(lg_k), mah.score(lg_u)),
+            }
+            scores_res = {}
+            for name, (sk, su) in cand.items():
+                q = float(np.quantile(su, 0.95))
+                scores_res[name] = {
+                    "auroc": auroc(su, sk),
+                    "tpr_at_95fpr": float((sk >= q).mean()),
+                }
+            result["openset_scores"] = scores_res
 
     # ---- noise sweep
     snrs = cfg.get("noise_snrs")
