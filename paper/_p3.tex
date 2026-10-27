@@ -322,6 +322,12 @@ Our study has clear limits, and we state them rather than hide them behind a rob
 
 The field's standard benchmark has saturated, and the standard robustness probe is not comparable across papers. We re-evaluated eight lightweight 1D architectures under one leakage-safe harness and found that clean accuracy is uninformative while noise accuracy separates the same models by 55 points; that the separation is mostly a property of the training recipe, which a one-line per-batch noise augmentation repairs; that a multi-channel wide front-end recovers up to 52 points for about 1\% more parameters, with the number of channels rather than the kernel width as the decisive knob; and that open-set rejection varies from 0.12 to 0.87 TPR at 5\% FPR across architectures even when closed-set accuracy is near 100\%, with the most noise-robust model rejecting worst---an axis that the augmentation repairing noise accuracy pushes the other way (AUROC 0.90 to 0.80) unless the rejection score is chosen with it, in which case almost all of that loss is recovered (0.80 to 0.94 with a logit-space Mahalanobis score). The practical message is short: stop reporting clean CWRU accuracy as evidence, report a noise matrix and an open-set number, and prefer a recipe change to an architecture change.
 
+\section*{Funding}
+This research received no external funding.
+
+\section*{Conflict of interest}
+The author declares no competing interests.
+
 \section*{Data and code availability}
 All splits, per-seed result files, figures and the exact commands that regenerate every number in this paper are released with the manuscript. CWRU and Paderborn data are public and are not redistributed.
 
