@@ -1,0 +1,255 @@
+{
+ "cfg": {
+  "model": "ticnn",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "seed": 0,
+  "epochs": 20,
+  "holdout_classes": [
+   1,
+   4,
+   7
+  ],
+  "noise_snrs": [
+   10.0,
+   0.0
+  ],
+  "score_eval": true,
+  "feature_scores": true
+ },
+ "data_meta": {
+  "dataset": "cwru",
+  "split": "safe",
+  "overlap": 0.5,
+  "win": 1024,
+  "task": "10class",
+  "classes": [
+   "normal",
+   "ball_007",
+   "ball_014",
+   "ball_021",
+   "inner_007",
+   "inner_014",
+   "inner_021",
+   "outer_007",
+   "outer_014",
+   "outer_021"
+  ],
+  "seed": 0,
+  "n_per_class": null,
+  "file_ids": [
+   "097.mat",
+   "098.mat",
+   "099.mat",
+   "100.mat",
+   "105.mat",
+   "106.mat",
+   "107.mat",
+   "108.mat",
+   "118.mat",
+   "119.mat",
+   "120.mat",
+   "121.mat",
+   "130.mat",
+   "131.mat",
+   "132.mat",
+   "133.mat",
+   "169.mat",
+   "170.mat",
+   "171.mat",
+   "172.mat",
+   "185.mat",
+   "186.mat",
+   "187.mat",
+   "188.mat",
+   "197.mat",
+   "198.mat",
+   "199.mat",
+   "200.mat",
+   "209.mat",
+   "210.mat",
+   "211.mat",
+   "212.mat",
+   "222.mat",
+   "223.mat",
+   "224.mat",
+   "225.mat",
+   "234.mat",
+   "235.mat",
+   "236.mat",
+   "237.mat"
+  ],
+  "n_train": 6520,
+  "n_test": 2680
+ },
+ "n_params": 83527,
+ "n_train": 4564,
+ "test_acc": 1.0,
+ "best_test_acc": 1.0,
+ "train_time_s": 5.51,
+ "history": [
+  {
+   "epoch": 1,
+   "train_loss": 0.33887408498762783,
+   "train_acc": 0.9329535495179667,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 2,
+   "train_loss": 0.016356668880700698,
+   "train_acc": 0.9997808939526731,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 3,
+   "train_loss": 0.006483894812619015,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 4,
+   "train_loss": 0.0038374814959479648,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 5,
+   "train_loss": 0.0027338773049708004,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 6,
+   "train_loss": 0.0020405498332663145,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 7,
+   "train_loss": 0.0015250703560287992,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 8,
+   "train_loss": 0.0012030895635335463,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 9,
+   "train_loss": 0.0010530765210812966,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 10,
+   "train_loss": 0.0009383246535027202,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 11,
+   "train_loss": 0.0008467268901199631,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 12,
+   "train_loss": 0.0007259053861523189,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 13,
+   "train_loss": 0.0006950052671777664,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 14,
+   "train_loss": 0.0006683854995120732,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 15,
+   "train_loss": 0.0006434641730311302,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 16,
+   "train_loss": 0.0005598781519389069,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 17,
+   "train_loss": 0.0005751105052856508,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 18,
+   "train_loss": 0.000570198389145282,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 19,
+   "train_loss": 0.0005720921236898025,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  },
+  {
+   "epoch": 20,
+   "train_loss": 0.0005669308550644414,
+   "train_acc": 1.0,
+   "test_acc": 1.0
+  }
+ ],
+ "openset": {
+  "holdout_classes": [
+   1,
+   4,
+   7
+  ],
+  "n_known_test": 1876,
+  "n_unknown_test": 804,
+  "auroc": 0.7985081256828862,
+  "tpr_at_95fpr": 0.017590618336886993,
+  "acc_at_reject_5pct": 0.9498933901918977,
+  "known_conf_mean": 0.9990354776382446,
+  "unknown_conf_mean": 0.974280059337616,
+  "threshold_q05": 0.9981808066368103
+ },
+ "openset_scores": {
+  "softmax": {
+   "auroc": 0.7984769648558911,
+   "tpr_at_95fpr": 0.017057569296375266
+  },
+  "energy": {
+   "auroc": 0.7799879865066989,
+   "tpr_at_95fpr": 0.011727078891257996
+  },
+  "mahalanobis": {
+   "auroc": 0.9641358771176103,
+   "tpr_at_95fpr": 0.7915778251599147
+  },
+  "mahalanobis_feat": {
+   "auroc": 0.9494418896986284,
+   "tpr_at_95fpr": 0.6311300639658849,
+   "dim": 128
+  }
+ },
+ "noise": {
+  "kind": "gaussian",
+  "acc_by_snr": {
+   "10.0": 0.9994669509594882,
+   "0.0": 0.3582089552238806
+  }
+ },
+ "run_id": "ticnn_safe_seed0_ep20_hold147_clean"
+}

@@ -121,16 +121,24 @@ maximum (0.899) on the same runs. The trade-off of Section~4.7 is thus partly a 
 read-out rather than of the features: the information that separates unseen faults is still
 there after augmentation, and the maximum-probability summary loses it.
 
-Two cautions. Our distance score lives in logit space, which is available for every architecture,
-while penultimate features are known to work better and would need a per-architecture hook; a
-feature-space variant, and a reconstruction-based score, remain untested. And the score is a free
+Two cautions. First, the gain could belong to the coordinate system rather than to the
+read-out: logits are a contraction of the features, and a distance in a contracted space need
+not behave like a distance in the space it contracts. We therefore repeated the grid with the
+same estimator fitted to the input of the last linear layer (penultimate features, 32--256
+dimensions across the eight models, obtained by one uniform rule with no architecture-specific
+hook). Mean AUROC is 0.952 clean-trained and 0.938 augmented---indistinguishable from the
+logit-space values (paired over 32 configurations: $-0.001$ and $-0.002$ AUROC, $p = 0.95$ and $p = 0.64$)
+and still far above the softmax maximum (0.899 and 0.796)---and the augmentation penalty is
+again 0.014 AUROC instead of 0.103. What matters is that the score measures distance rather
+than probability mass, not the coordinates in which it is measured. Second, the score is a free
 parameter of the evaluation, so an open-set number means little without it: the same networks
 that look damaged by augmentation under one score look almost unaffected under another, just as
-a robustness claim means little without naming the noise family.
+a robustness claim means little without naming the noise family. A reconstruction-based score
+remains untested.
 
 \begin{table}[t]
 \centering
-\caption{Decision-layer scores on the same trained networks (eight models, two holdout sets, two seeds; each cell averages four runs). softmax is the maximum softmax probability used in Sections~4.6--4.7, energy is the negative free energy $T\log\sum_j e^{z_j/T}$, and Mahalanobis is the negative minimum distance to class-conditional Gaussians fitted on the training logits with a shared covariance. All three are computed after training and add no parameters. The best score in each row is bold for AUROC and for TPR separately.}
+\caption{Decision-layer scores on the same trained networks (eight models, two holdout sets, two seeds; each cell averages four runs). softmax is the maximum softmax probability used in Sections~4.6--4.7, energy is the negative free energy $T\log\sum_j e^{z_j/T}$, and Mahalanobis is the negative minimum distance to class-conditional Gaussians fitted on the training logits with a shared covariance. All three are computed after training and add no parameters; a fourth read-out, the same distance in penultimate-feature space, is reported in the text. The best score in each row is bold for AUROC and for TPR separately.}
 \label{tab:scores}
 \begin{tabular}{llrrrrrr}
 \toprule
@@ -165,7 +173,9 @@ MLP-Mixer1D & clean & .873 & .841 & \best{.932} & .490 & .428 & \best{.705} \\
 same trained networks move from 0.899 (softmax, clean) and 0.796 (softmax, augmented) to 0.953
 and 0.940 mean AUROC when the rejection score is a logit-space Mahalanobis distance, with no
 retraining and no parameters, and the cost of noise augmentation on rejection falls from 0.103
-to 0.013 AUROC. A claim that an intervention breaks or preserves rejectability must name the
+to 0.013 AUROC. A fourth read-out, the same distance in penultimate-feature space, reproduces
+both numbers (0.952 and 0.938), so the gain comes from measuring distance rather than from
+logit coordinates. A claim that an intervention breaks or preserves rejectability must name the
 score it was measured with, exactly as a robustness claim must name the noise family (Finding~9).
 
 \subsection{Other noise families}
@@ -291,7 +301,7 @@ Our open-set audit adds a third inversion to the one described in Section~4.2. A
 
 This is not a paradox. A noise-tolerant classifier is by construction a smoothing operator: it is trained to give the same answer for many perturbations of the input, and an unknown fault class is just one more perturbation that falls inside the smoothed region. Rejection quality instead depends on how \emph{peaked} the score function is around the training classes, which is what narrow, brittle models have. The practical consequence is that the two requirements must be evaluated, and optimised, separately: reporting a noise-robust model as deployment-ready without an open-set number conflates two axes of behaviour.
 
-How much of the second axis is the score is a separate question, and Section~4.8 answers it: with a logit-space Mahalanobis score the same networks reach 0.953 (clean) and 0.940 (augmented) mean AUROC, and the cost of augmentation falls from 0.103 to 0.013 AUROC. The trade-off of Section~4.7 is therefore mostly a property of the softmax read-out: the smoothing that buys noise tolerance flattens the maximum-probability summary, but the class-conditional geometry that separates unseen faults survives it. The practical rule is the same as for robustness claims---report the open-set number together with the score that produced it.
+How much of the second axis is the score is a separate question, and Section~4.8 answers it: with a Mahalanobis distance score the same networks reach 0.953 (clean) and 0.940 (augmented) mean AUROC (0.952 and 0.938 when the distance is measured in penultimate-feature space), and the cost of augmentation falls from 0.103 to 0.014 AUROC. The trade-off of Section~4.7 is therefore mostly a property of the softmax read-out: the smoothing that buys noise tolerance flattens the maximum-probability summary, but the class-conditional geometry that separates unseen faults survives it. The practical rule is the same as for robustness claims---report the open-set number together with the score that produced it.
 
 \subsection{What a practitioner should do}
 Given a fixed budget and a narrow-kernel backbone, our results suggest a concrete ordering: (i) add per-batch noise augmentation, which is free in parameters and worth 27 points on average; (ii) add a wide multi-channel stem, which is worth up to 55 points for about 1\% more parameters; (iii) only then consider architectural novelty. Both interventions are implemented in a few lines (Appendix~A). Reporting should follow with the test matrix that produced these numbers: at minimum clean plus two noisy SNRs, with seeds and paired statistics.
@@ -312,7 +322,7 @@ Our study has clear limits, and we state them rather than hide them behind a rob
 
 \paragraph{Noise protocol.} SNR is defined on the raw window before normalisation, per window, with a fixed noise realisation per evaluation; we do not average over noise realisations, which would narrow the error bars. The augmentation schedule (uniform 0--15\,dB per batch) is one of many; we did not search it.
 
-\paragraph{Open set.} Two held-out-class configurations (three of ten), and the rejection score in the main audit is the softmax maximum. We do compare two alternatives on the same networks (Section~4.8): the negative free energy behaves like the softmax maximum, while a Mahalanobis score in logit space improves mean AUROC from 0.899 to 0.953 clean-trained and 0.796 to 0.940 augmented and leaves an augmentation cost of only 0.013 AUROC. Penultimate-feature and reconstruction-based scores are untested, and the logit-space Mahalanobis score is the only distance-based variant we ran. The large spread across holdout configurations (0.05--0.87 TPR at 5\% FPR for the same model) also means that a single open-set number should be read as a sample, not as a property.
+\paragraph{Open set.} Two held-out-class configurations (three of ten), and the rejection score in the main audit is the softmax maximum. We do compare three alternatives on the same networks (Section~4.8): the negative free energy behaves like the softmax maximum, while a Mahalanobis distance improves mean AUROC from 0.899 to 0.953 clean-trained and 0.796 to 0.940 augmented in logit space and to 0.952 and 0.938 in penultimate-feature space, leaving an augmentation cost of 0.013--0.014 AUROC; a reconstruction-based score remains untested. The large spread across holdout configurations (0.05--0.87 TPR at 5\% FPR for the same model) also means that a single open-set number should be read as a sample, not as a property.
 
 \paragraph{Randomness in augmentation.} The noise schedule draws a fresh SNR per mini-batch. In the code released with this paper the draw is derived from the seed, so a run is exactly reproducible; the augmented results reported here were produced before that fix, so re-running an augmented configuration reproduces it to within 1--8 points at 10 and 5\,dB (the random draws differ). All augmented numbers in this paper are means over three seeds, and the standard deviations in Table~\ref{tab:combo} include this variation. The claims we draw from them are differences of 20--50 points.
 
@@ -320,7 +330,7 @@ Our study has clear limits, and we state them rather than hide them behind a rob
 
 \section{Conclusion}
 
-The field's standard benchmark has saturated, and the standard robustness probe is not comparable across papers. We re-evaluated eight lightweight 1D architectures under one leakage-safe harness and found that clean accuracy is uninformative while noise accuracy separates the same models by 55 points; that the separation is mostly a property of the training recipe, which a one-line per-batch noise augmentation repairs; that a multi-channel wide front-end recovers up to 52 points for about 1\% more parameters, with the number of channels rather than the kernel width as the decisive knob; and that open-set rejection varies from 0.12 to 0.87 TPR at 5\% FPR across architectures even when closed-set accuracy is near 100\%, with the most noise-robust model rejecting worst---an axis that the augmentation repairing noise accuracy pushes the other way (AUROC 0.90 to 0.80) unless the rejection score is chosen with it, in which case almost all of that loss is recovered (0.80 to 0.94 with a logit-space Mahalanobis score). The practical message is short: stop reporting clean CWRU accuracy as evidence, report a noise matrix and an open-set number, and prefer a recipe change to an architecture change.
+The field's standard benchmark has saturated, and the standard robustness probe is not comparable across papers. We re-evaluated eight lightweight 1D architectures under one leakage-safe harness and found that clean accuracy is uninformative while noise accuracy separates the same models by 55 points; that the separation is mostly a property of the training recipe, which a one-line per-batch noise augmentation repairs; that a multi-channel wide front-end recovers up to 52 points for about 1\% more parameters, with the number of channels rather than the kernel width as the decisive knob; and that open-set rejection varies from 0.12 to 0.87 TPR at 5\% FPR across architectures even when closed-set accuracy is near 100\%, with the most noise-robust model rejecting worst---an axis that the augmentation repairing noise accuracy pushes the other way (AUROC 0.90 to 0.80) unless the rejection score is chosen with it, in which case almost all of that loss is recovered (0.80 to 0.94 with a Mahalanobis distance score, in logit or penultimate-feature space). The practical message is short: stop reporting clean CWRU accuracy as evidence, report a noise matrix and an open-set number, and prefer a recipe change to an architecture change.
 
 \section*{Funding}
 This research received no external funding.
@@ -348,10 +358,11 @@ All splits, per-seed result files, figures and the exact commands that regenerat
 \item \texttt{python -m experiments.e8\_paderborn} --- the second dataset (Paderborn).
 \item \texttt{python -m experiments.e9\_openset\_aug --seeds 0,1 --epochs 20} --- rejection under augmented training (Section~4.7).
 \item \texttt{python -m experiments.e10\_scores --seeds 0,1 --epochs 20} --- the three rejection scores (Section~4.8).
+\item \texttt{python -m experiments.e11\_penultimate --seeds 0,1 --epochs 20} --- the same grid scored in penultimate-feature space.
 \item \texttt{python -m experiments.stats \&\& python -m experiments.figures} --- tables and figures.
 \item \texttt{python experiments/check\_tables.py} --- re-verifies every table in this manuscript cell by cell against \texttt{results/*.json}.
 \end{enumerate}
-A single training run takes 8--84\,s on a laptop-class accelerator (Apple M5, MPS backend); the full matrix is about 370 runs, i.e.\ a few hours.
+A single training run takes 8--84\,s on a laptop-class accelerator (Apple M5, MPS backend); the full matrix is about 430 runs, i.e.\ a few hours.
 
 \paragraph{Reporting checklist.} We suggest that every vibration-diagnosis paper report:
 \begin{enumerate}

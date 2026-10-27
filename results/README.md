@@ -31,6 +31,7 @@ Two kinds of files:
 | `e3_openset.json` | `table[model][hold369|hold147] = {auroc, tpr95, known_acc}` |
 | `e9_openset_aug.json` | same shape for augmented training, plus `paired_vs_e3.metrics` (32 paired runs) |
 | `e10_scores.json` | `table[model][clean|aug][score] = {auroc, tpr95}`; `stats.score_comparison` holds the paired Wilcoxon |
+| `e11_penultimate.json` | same shape with scores `softmax`, `mahalanobis`, `mahalanobis_feat`; per-model feature width in `table[model][mode][\"feat_dim\"]` |
 | `stem_ablation.json` | `rows[] = {label, backbone, k, s, c, clean, by_snr{"10.0","5.0","0.0"}}` |
 | `e5_combo.json` | `table[model][condition] = {clean, "10.0", "5.0", "0.0"}`, plus `deltas_vs_plain` |
 | `e6_noise_types.json` | `tables[model][kind][snr] = [mean, std]`, `gaussian_reference` (from E2) |

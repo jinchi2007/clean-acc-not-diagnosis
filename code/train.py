@@ -106,6 +106,38 @@ def predict_logits(model: nn.Module, x: np.ndarray, device, batch: int = 512) ->
 
 
 @torch.no_grad()
+def predict_logits_and_features(model: nn.Module, x: np.ndarray, device, batch: int = 512):
+    """Return (logits, penultimate features) for x.
+
+    The penultimate layer is the input of the last nn.Linear module, captured
+    with a pre-hook so that no model-specific code is needed.
+    """
+    last_linear = None
+    for _, m in model.named_modules():
+        if isinstance(m, nn.Linear):
+            last_linear = m
+    if last_linear is None:
+        raise RuntimeError("no nn.Linear layer found; cannot extract features")
+    feats = []
+
+    def _hook(_module, inputs):
+        feats.append(inputs[0].detach().reshape(inputs[0].shape[0], -1).cpu().numpy())
+
+    handle = last_linear.register_forward_pre_hook(_hook)
+    model.eval()
+    logits = []
+    try:
+        for i in range(0, len(x), batch):
+            xb = torch.from_numpy(np.ascontiguousarray(x[i : i + batch])).to(device)
+            logits.append(model(xb).cpu().numpy())
+    finally:
+        handle.remove()
+    if not logits:
+        return np.zeros((0, 1), dtype=np.float32), np.zeros((0, 1), dtype=np.float32)
+    return np.concatenate(logits, axis=0), np.concatenate(feats, axis=0)
+
+
+@torch.no_grad()
 def evaluate(model: nn.Module, x: np.ndarray, y: np.ndarray, device, batch: int = 512) -> float:
     if len(y) == 0:
         return float("nan")
@@ -275,6 +307,21 @@ def train_one(cfg: dict) -> dict:
                 scores_res[name] = {
                     "auroc": auroc(su, sk),
                     "tpr_at_95fpr": float((sk >= q).mean()),
+                }
+            # ---- penultimate-feature variant (E11): same estimator, features
+            if cfg.get("feature_scores"):
+                from code.scores import FeatureMahalanobis
+
+                _, ft_tr = predict_logits_and_features(model, x_train, device)
+                _, ft_k = predict_logits_and_features(model, x_known, device)
+                _, ft_u = predict_logits_and_features(model, x_unknown, device)
+                fm = FeatureMahalanobis(ft_tr, y_train)
+                sk, su = fm.score(ft_k), fm.score(ft_u)
+                qf = float(np.quantile(su, 0.95))
+                scores_res["mahalanobis_feat"] = {
+                    "auroc": auroc(su, sk),
+                    "tpr_at_95fpr": float((sk >= qf).mean()),
+                    "dim": int(ft_tr.shape[1]),
                 }
             result["openset_scores"] = scores_res
 

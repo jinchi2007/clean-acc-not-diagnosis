@@ -51,3 +51,8 @@ class LogitMahalanobis:
         f = logits.astype(np.float64)
         d = np.stack([np.einsum("ij,jk,ik->i", f - mu, self.prec, f - mu) for mu in self.means], axis=0)
         return -d.min(axis=0)
+
+# The same estimator is dimension-agnostic, so it is reused verbatim on
+# penultimate features (the input of the last linear classifier) to test
+# whether the logit-space result of E10 is an artefact of using logits.
+FeatureMahalanobis = LogitMahalanobis
