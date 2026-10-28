@@ -2,15 +2,15 @@
 
 \subsection{Clean accuracy is saturated}
 
-Table~\ref{tab:sat} and Figure~\ref{fig:sat} report the four protocols over all eight models. Under the leakage-safe protocol seven of eight exceed 99.6\%, and the entire span is 2.5 points, from LeNet1D at 0.975 to MCNN at 1.000. The heat map makes the point visually: the two leftmost columns are a single colour.
+Table~\ref{tab:sat} and Figure~\ref{fig:sat} report the four protocols over all eight models. Under the leakage-safe protocol seven of eight exceed 99.6\%, and the entire span is 2.5 points, from LeNet1D at 0.975 to MCNN at 1.000. In Figure~\ref{fig:sat} the two leftmost columns are a single colour.
 
-Changing the split, by contrast, moves everything. The cross-load protocol costs 5 to 13 points per model (WDCNN 0.948, LeNet1D 0.856), i.e.\ 10 points on average, and it is the only column with visible structure. WDCNN is the best model there although it is only fifth under the leakage-safe protocol; the three narrow-kernel convolutional backbones (MCNN, ResNet1D, DS-CNN) all land within half a point of 0.899, which we read as a ceiling of the 10-class task across loads rather than as a property of the three models. The recording-disjoint column sits in between and carries the largest seed spread (WDCNN $0.955\pm0.052$), so we treat it as a consistency check rather than a ranking.
+Changing the split has a much larger effect. The cross-load protocol costs 5 to 13 points per model (WDCNN 0.948, LeNet1D 0.856), i.e.\ 10 points on average, and it is the only column with visible structure. WDCNN is the best model there although it is only fifth under the leakage-safe protocol; the three narrow-kernel convolutional backbones (MCNN, ResNet1D, DS-CNN) all land within half a point of 0.899, which we read as a ceiling of the 10-class task across loads rather than as a property of the three models. The recording-disjoint column sits in between and carries the largest seed spread (WDCNN $0.955\pm0.052$), so we treat it as a consistency check rather than a ranking.
 
-Leakage is a small effect. Leaky is above safe for all eight models, but by at most 0.63 points (LeNet1D 0.982 vs.\ 0.975) and by 0.3 points or less for seven of them---an order of magnitude below what recent critiques of vibration benchmarks imply~\citep{phme2026,ssrn2024}. The protocol choice (leaky $\rightarrow$ cross-load) costs 5--13 points, an order of magnitude more than the 0.6 points at most that leakage costs. The same comparison in a 20-windows-per-class regime, where the overlap removes a much larger fraction of the training windows, gives a mean leaky-minus-safe gap of $+0.4$ points (four models, two seeds, at most $+0.9$ for WDCNN); that regime reduces accuracy from 0.38 (LeNet1D) to 0.98 (MCNN) and thus exposes model differences that full data hides, but leakage remains negligible there too.
+Leakage is a small effect. Leaky is above safe for all eight models, but by at most 0.63 points (LeNet1D 0.982 vs.\ 0.975) and by 0.3 points or less for seven of them. Changing the protocol from leaky to cross-load costs 5--13 points, an order of magnitude more than leakage costs at full data. The same comparison in a 20-windows-per-class regime, where the overlap removes a much larger fraction of the training windows, gives a mean leaky-minus-safe gap of $+0.4$ points (four models, two seeds, at most $+0.9$ for WDCNN); that regime reduces accuracy from 0.38 (LeNet1D) to 0.98 (MCNN) and thus exposes model differences that full data hides, but leakage remains negligible there too.
 
-\textbf{Finding 1.} Every lightweight model reaches $\geq 97.5\%$ under a leakage-safe protocol. The benchmark is saturated: the eight models span 2.5 points, less than the effect of changing the split, so clean CWRU accuracy cannot rank architectures or support the architectural claims in the literature.
+\textbf{Finding 1.} All eight models reach at least $97.5\%$ under a leakage-safe protocol and span 2.5 points, less than the effect of changing the split. Clean CWRU accuracy can therefore not rank these architectures, let alone support the architectural claims made in the literature.
 
-\textbf{Finding 2.} Overlapping-window leakage inflates accuracy by at most 0.6 points at full data and by at most 0.9 points in a 20-windows-per-class regime. The contamination of the CWRU literature comes from the split protocol, not from leakage, and the more serious problem is saturation.
+\textbf{Finding 2.} Overlapping-window leakage inflates accuracy by at most 0.6 points at full data and by at most 0.9 points in a 20-windows-per-class regime. Split choice, not leakage, is what separates published numbers, and the more serious problem is saturation.
 
 \begin{table}[t]
 \centering
@@ -43,9 +43,9 @@ spread & 1.8 & 2.5 & 9.1 & 4.5\\
 
 \subsection{Noise stress: a 55-point spread and a rank inversion}
 
-Table~\ref{tab:e2} reports the same models evaluated on noisy test signals. The clean column is uninformative: the 10\,dB column spans \best{0.427 to 0.980}, i.e.\ 55 points.
+Table~\ref{tab:e2} reports the same models evaluated on noisy test signals. The clean column spans 0.970 to 1.000, 3 points; the 10\,dB column spans \best{0.427 to 0.980}, 55 points.
 
-\textbf{Finding 3.} At 10\,dB SNR the eight architectures are separated by 55 points, while on clean data they are separated by 3. Three models above 99.5\% clean accuracy fall below 60\% at 10\,dB. Across the eight models, the Spearman correlation between clean and 10\,dB accuracy is $\rho=-0.38$ ($p=0.35$, $n=8$): not merely uninformative but slightly negative. The only architectures that survive are the two with wide first-layer kernels (WDCNN, TICNN).
+\textbf{Finding 3.} At 10\,dB SNR the eight architectures are separated by 55 points, while on clean data they are separated by 3. Seven of them reach at least 99.5\% clean accuracy, and three of those fall below 60\% at 10\,dB. Across the eight models the Spearman correlation between clean and 10\,dB accuracy is $\rho=-0.38$ ($p=0.35$, $n=8$), so the clean ranking carries no information about the noisy one and, if anything, points the wrong way. The only architectures that survive are the two with wide first-layer kernels (WDCNN, TICNN).
 
 \begin{table*}[t]
 \centering
@@ -78,7 +78,7 @@ ResNet1D    & 241{,}322 & .9999 & .8051 & \best{.4271} (.012) & .2646 & .1357 & 
 
 Table~\ref{tab:e4} repeats the matrix with one change: during training, each mini-batch draws a random SNR from $U[0,15]$\,dB.
 
-\textbf{Finding 4.} Augmentation compresses the 10\,dB spread from 55 to 13 points and lifts the worst clean-trained model at 10\,dB (ResNet1D, 0.427) to 0.945, the second worst (DS-CNN) to 0.969, and even the weakest augmented model reaches 87\%. Averaged over the 24 (model, seed) pairs, 10\,dB accuracy rises from .699 to .967 ($+26.8$ points, Holm-corrected $p<10^{-6}$), 5\,dB from .452 to .970 and 0\,dB from .238 to .687 (Table~\ref{tab:wilcoxon}). The price is 5.4 points of clean accuracy, concentrated in the small and deep models; the two wide-kernel models lose at most 2 points. This is a better trade than any architectural change we tried.
+\textbf{Finding 4.} Augmentation compresses the 10\,dB spread from 55 to 13 points and lifts the worst clean-trained model at 10\,dB (ResNet1D, 0.427) to 0.945, the second worst (DS-CNN) to 0.969, and even the weakest augmented model reaches 87\%. Averaged over the 24 (model, seed) pairs, 10\,dB accuracy rises from .699 to .967 ($+26.8$ points, Holm-corrected $p<10^{-6}$), 5\,dB from .452 to .970 and 0\,dB from .238 to .687 (Table~\ref{tab:wilcoxon}). The price is 5.4 points of clean accuracy on average: the four backbones that already mix the whole window (WDCNN, TICNN, ViT1D, MLP-Mixer1D) lose at most 1.3 points, while the narrow-kernel and multi-scale CNNs lose 8.8--12.7.
 
 \begin{table*}[t]
 \centering
@@ -125,11 +125,11 @@ clean     & .9949 & .9405 & $-0.0543$ & $3.6\times10^{-5}$\\
 \label{fig:rank}
 \end{figure*}
 
-\subsection{A multi-channel front-end buys robustness almost for free}
+\subsection{A multi-channel front-end at almost no clean cost}
 
 The previous two subsections suggest that robustness lives in what happens at the input: noise augmentation changes the input distribution during training, and wide first-layer kernels act as a fixed band-pass. To test the second mechanism directly we insert a learnable front-end---$c$ parallel convolutions with kernel $k$ and stride $s$, concatenated in the channel dimension---in front of narrow-kernel backbones, and sweep $(k,c)\in\{(32,8),(64,1),(64,4),(64,8),(128,8)\}$ (Table~\ref{tab:stem}).
 
-\textbf{Finding 5.} The number of front-end channels, not the kernel width, is the decisive knob. For ResNet1D, one wide channel ($k=64,c=1$) buys $+34.3$ points at 10\,dB but costs 12.7 clean points; $c=8$ at the same $k$ buys $+49.6$ points for only 0.7 clean points; widening to $k=128$ adds another 2.7 points at 10\,dB for 512 more parameters: the front end doubles in size while the backbone grows by 0.2\%. A multi-channel wide stem is therefore the cheapest single change a practitioner can make to a narrow-kernel backbone: 2{,}608 parameters, or 1.1\% of the ResNet1D backbone. The gain is largest where the backbone is most brittle ($+49.6$ for ResNet1D at $c=8$, $+52.3$ with $k=128$; $+49.8$ for DS-CNN) and smallest where the backbone already mixes the whole window ($+13.3$ for ViT1D).
+\textbf{Finding 5.} The number of front-end channels, not the kernel width, is the decisive factor. For ResNet1D, one wide channel ($k=64,c=1$) adds $+34.3$ points at 10\,dB but costs 12.7 clean points; $c=8$ at the same $k$ adds $+49.6$ points for 0.7 clean points; widening to $k=128$ adds another 2.7 points at 10\,dB for 512 more parameters: the front end doubles in size while the backbone grows by 0.2\%. A multi-channel wide stem is therefore the cheapest change we found for a narrow-kernel backbone: 2{,}608 parameters, or 1.1\% of the ResNet1D backbone. The gain is largest where the backbone is most brittle ($+49.6$ for ResNet1D at $c=8$, $+52.3$ with $k=128$; $+49.8$ for DS-CNN) and smallest where the backbone already mixes the whole window ($+13.3$ for ViT1D).
 
 \begin{table}[t]
 \centering
@@ -162,14 +162,14 @@ ViT1D $k64c8$           & 143{,}706 & .9918 & .9049 & .7474 & .3489 & $+13.3$\\
 \label{fig:stem}
 \end{figure}
 
-\subsection{The two mechanisms compose, and the front-end makes augmentation cheap}
+\subsection{Combining the two mechanisms}
 \label{sec:combo}
 
-The two interventions act on different parts of the pipeline, so they need not be alternatives. Table~\ref{tab:combo} crosses them: for the four most brittle backbones, we train with neither, with augmentation only, with a stem only, and with both (stem $k64c8$, and $k128c8$ for ResNet1D; three seeds, 20 epochs).
+The two interventions act on different parts of the pipeline, so they need not be alternatives. Table~\ref{tab:combo} crosses them: for four representative backbones, we train with neither, with augmentation only, with a stem only, and with both (stem $k64c8$, and $k128c8$ for ResNet1D; three seeds, 20 epochs).
 
-\textbf{Finding 6.} The combination is the best configuration at 10\,dB for three of the four backbones (ResNet1D 0.989, DS-CNN 0.973, MCNN 0.995) and loses to augmentation alone in the fourth (ViT1D 0.978 vs.\ 0.991). Two effects make it strictly preferable to either intervention alone. First, the front-end cancels most of the clean-accuracy cost of augmentation: augmentation alone costs 0.3--15 clean points on these backbones, while stem plus augmentation costs 0.6--4.3, because the parallel band-pass filters absorb the distribution shift that the noise schedule introduces. Second, the largest gains appear at low SNR: at 0\,dB, moving from plain to stem plus augmentation adds 73, 49, 81 and 61 points respectively, and even at $-5$\,dB (outside the augmentation range) the gain remains 10--43 points.
+\textbf{Finding 6.} The combination is the best configuration at 10\,dB for three of the four backbones (ResNet1D 0.989, DS-CNN 0.973, MCNN 0.995) and loses to augmentation alone in the fourth (ViT1D 0.978 vs.\ 0.991). Two effects make the combination better than either intervention alone. First, the front-end cancels most of the clean-accuracy cost of augmentation: augmentation alone costs 0.3--15 clean points on these backbones, while stem plus augmentation costs 0.6--4.3, because the parallel band-pass filters absorb the distribution shift that the noise schedule introduces. Second, the largest gains appear at low SNR: at 0\,dB, moving from plain to stem plus augmentation adds 73, 49, 81 and 61 points respectively, and even at $-5$\,dB (outside the augmentation range) the gain remains 10--43 points.
 
-ViT1D is the exception that confirms the mechanism: its patch embedding already performs a learned projection of the whole window, so the front-end adds only 15 points at 10\,dB, less than the 24 points of pure augmentation. For ViT-style backbones the recipe, not the input layer, is the lever.
+ViT1D behaves differently: its patch embedding already projects the whole window, so the front-end adds only 15 points at 10\,dB, less than the 24 points gained from augmentation. For this backbone the training recipe matters more than the input layer.
 
 \begin{table}[t]
 \centering

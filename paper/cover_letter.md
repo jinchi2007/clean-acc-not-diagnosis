@@ -47,5 +47,5 @@ Thank you for your consideration.
 Sincerely,
 
 Han Jinchi
-<affiliation>
-<email>
+Southwest University, Chongqing, China
+1395574811@qq.com

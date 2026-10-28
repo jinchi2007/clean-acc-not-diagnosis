@@ -5,8 +5,8 @@ type: software
 authors:
   - family-names: "Han"
     given-names: "Jinchi"
-    affiliation: "<affiliation>"
-    email: "<email>"
+    affiliation: "Southwest University, Chongqing, China"
+    email: "1395574811@qq.com"
 repository-code: "https://github.com/<user>/clean-acc-not-diagnosis"
 license: MIT
 references:
