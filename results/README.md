@@ -52,3 +52,8 @@ python experiments/check_tables.py     # every table cell against the JSON above
 The datasets (`data/`) are not distributed; `code/data/download_cwru.py` fetches CWRU and
 `code/data/paderborn.py` parses the Paderborn KAt archive (see the top-level README).
 
+## Unused runs
+
+results/runs/e0_sat/ holds the 64 runs that enter results/e0_sat.json (seeds 0 and 1).
+Nine seed-2 runs produced by an abandoned job are kept in results/extra_runs/e0_sat/
+and are deliberately excluded from every aggregation.

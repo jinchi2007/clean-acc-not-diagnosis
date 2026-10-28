@@ -39,6 +39,10 @@ def collect():
             continue
         if not usable(cfg, r):
             continue
+        # e0_sat was reported over seeds 0 and 1; nine seed-2 runs from an abandoned
+        # job were moved to results/extra_runs/ and are deliberately not aggregated.
+        if os.path.basename(os.path.dirname(path)) == "e0_sat" and int(cfg.get("seed", 0)) not in (0, 1):
+            continue
         acc.setdefault((cfg["model"], cfg["split"]), {}).setdefault(int(cfg.get("seed", 0)), []).append(float(r["test_acc"]))
     out = {}
     for key, seeds in acc.items():

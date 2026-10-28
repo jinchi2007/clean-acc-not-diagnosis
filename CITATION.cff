@@ -3,8 +3,8 @@ message: "If you use this code or the noise-stress protocol, please cite the pap
 title: "Clean Accuracy Is Not Diagnosis: A Noise-Stress Re-evaluation of Lightweight Bearing Fault Diagnosis"
 type: software
 authors:
-  - family-names: "<family name>"
-    given-names: "<given name>"
+  - family-names: "Han"
+    given-names: "Jinchi"
     affiliation: "<affiliation>"
     email: "<email>"
 repository-code: "https://github.com/<user>/clean-acc-not-diagnosis"

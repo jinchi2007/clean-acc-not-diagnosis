@@ -27,8 +27,8 @@ of 5.4 points of clean accuracy. (iv) A multi-channel wide first-layer stem reco
 (Spearman rho = -0.64) because a noise-tolerant classifier is a smoothing operator. (vi) The ordering of
 models changes again under harmonic, impulsive and drift noise, so robustness claims that name only
 Gaussian noise are not reproducible. (vii) The rejection loss is mostly in the decision layer, not the
-features: scoring the same trained networks with a logit-space Mahalanobis distance raises mean open-set
-AUROC from 0.90 to 0.95 clean-trained and from 0.80 to 0.94 augmented, i.e. the cost of the augmentation
+features: scoring the same trained networks with a Mahalanobis distance raises mean open-set AUROC from
+0.90 to 0.95 clean-trained and from 0.80 to 0.94 augmented, i.e. the cost of the augmentation
 on rejection falls from 0.10 to 0.01, so any open-set number must be reported together with its score. (viii) The gain does not depend on the coordinate system: the same distance computed on the input of the last linear layer (penultimate features) gives 0.952 clean and 0.938 augmented, so it is the distance read-out, not the logits, that carries the rejection. We also reproduce the collapse and its repair on the Paderborn
 benchmark, and the leakage audit shows the effect of overlapping-window leakage is at most 0.6 points.
 
@@ -45,4 +45,7 @@ scripts will be released with the paper. A preprint is not required for our subm
 Thank you for your consideration.
 
 Sincerely,
-<name>, <affiliation>, <email>
+
+Han Jinchi
+<affiliation>
+<email>
