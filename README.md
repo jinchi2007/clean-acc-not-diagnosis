@@ -3,6 +3,12 @@
 A noise-stress re-evaluation of eight lightweight 1D architectures for bearing fault
 diagnosis. Companion code, data splits and per-seed result files for the manuscript.
 
+**Repository:** <https://github.com/jinchi2007/clean-acc-not-diagnosis>
+
+```bash
+git clone git@github.com:jinchi2007/clean-acc-not-diagnosis.git
+```
+
 **The one-sentence result:** on the standard CWRU benchmark every architecture is
 saturated above 97% clean accuracy, so clean accuracy cannot rank architectures; adding
 test noise separates the same models by 55 points and reverses the ranking, and the
