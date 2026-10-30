@@ -131,6 +131,9 @@ def main():
     for r in rows:
         if r["split"] != "safe" or r["stem"]:
             continue
+        # only the clean-vs-augmentation pair grids feed the paired tests
+        if r["grid"] not in ("e2_noise_clean", "e4_aug"):
+            continue
         if r["aug"]:
             base.setdefault("aug", {})[(r["model"], r["seed"])] = r
         else:

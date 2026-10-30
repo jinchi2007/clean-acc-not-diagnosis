@@ -22,7 +22,7 @@ done
 
 # 3. a short README that says how to rebuild
 cat > "$OUT/README.txt" <<'EOF'
-Manuscript: "Clean Accuracy Is Not Diagnosis: A Noise-Stress Re-evaluation of
+Manuscript: "Clean Accuracy Is Not a Diagnosis: A Noise-Stress Re-evaluation of
 Lightweight Bearing Fault Diagnosis"
 
 main.tex        assembled LaTeX source (XeLaTeX; needs fontspec, booktabs, natbib)

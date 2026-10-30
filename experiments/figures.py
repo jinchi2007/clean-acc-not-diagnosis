@@ -164,6 +164,8 @@ def fig_stem():
     for r in rows:
         if not r.get("c"):
             continue
+        if r["label"] == "ds_cnn_k64_c4":
+            continue  # not a row of Table 5
         b = base.get(r["backbone"])
         if not b:
             continue

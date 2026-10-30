@@ -216,40 +216,52 @@ for cells in tabs["tab:wilcoxon"]:
 
 
 # ---------- tab:opensetaug ----------
-e9 = json.load(open(ROOT/"results"/"e9_openset_aug.json"))["table"]
-def e3_mean(name, key):
-    return (e3[name]["hold369"][key] + e3[name]["hold147"][key]) / 2
-rows_seen = []
+def load_runs(sub):
+    out = {}
+    for f in (ROOT/"results"/"runs"/sub).glob("*.json"):
+        d = json.load(open(f)); c = d["cfg"]
+        out[(c["model"], tuple(c["holdout_classes"]), c["seed"])] = d["openset"]
+    return out
+e3r, e9r = load_runs("e3_openset"), load_runs("e9_openset_aug")
+def paired_model(name):
+    recs = []
+    for hold in ((3, 6, 9), (1, 4, 7)):
+        for seed in (0, 1):
+            k = (name, hold, seed)
+            if k in e3r and k in e9r:
+                recs.append((e3r[k]["auroc"], e9r[k]["auroc"], e3r[k]["tpr_at_95fpr"], e9r[k]["tpr_at_95fpr"]))
+    return recs
+all_pairs = []
 for cells in tabs["tab:opensetaug"]:
     name = mkey(cells[0])
     if name == "mean":
         continue
-    if name not in e9 or name not in e3:
+    recs = paired_model(name)
+    if not recs:
         continue
-    rows_seen.append(name)
-    ca, ct = e3_mean(name, "auroc"), e3_mean(name, "tpr95")
-    aa, at = e9[name]["mean"]["auroc"], e9[name]["mean"]["tpr95"]
+    all_pairs.extend(recs)
+    exp = [sum(r[0] for r in recs)/len(recs), sum(r[1] for r in recs)/len(recs),
+           sum(r[1]-r[0] for r in recs)/len(recs), sum(r[2] for r in recs)/len(recs),
+           sum(r[3] for r in recs)/len(recs), sum(r[3]-r[2] for r in recs)/len(recs)]
     got = [x for c in cells[1:] for x in fracs(c)]
-    exp = [ca, aa, aa - ca, ct, at, at - ct]
     if len(got) != 6:
         errs.append(f"tab:opensetaug {name}: parsed {got}")
         continue
     for g, e in zip(got, exp):
         if abs(g - round(e, 3)) > 6e-4:
             errs.append(f"tab:opensetaug {name}: tex {g} != results {e:.4f}")
-pm = e9.get("paired_vs_e3", {}).get("metrics", {})
-if pm:
-    mean_cells = [c for cells in tabs["tab:opensetaug"] if clean(cells[0]).lower() == "mean" for c in cells]
-    if mean_cells:
-        got = [x for c in mean_cells[1:] for x in fracs(c)]
-        exp = [pm["auroc"]["clean_trained"], pm["auroc"]["augmented"], pm["auroc"]["delta"],
-               pm["tpr95"]["clean_trained"], pm["tpr95"]["augmented"], pm["tpr95"]["delta"]]
-        if len(got) == 6:
-            for g, e in zip(got, exp):
-                if abs(g - round(e, 3)) > 6e-4:
-                    errs.append(f"tab:opensetaug mean: tex {g} != results {e:.4f}")
-        else:
-            errs.append(f"tab:opensetaug mean: parsed {got}")
+mean_cells = [c for cells in tabs["tab:opensetaug"] if clean(cells[0]).lower() == "mean" for c in cells]
+if mean_cells and all_pairs:
+    got = [x for c in mean_cells[1:] for x in fracs(c)]
+    n = len(all_pairs)
+    exp = [sum(r[0] for r in all_pairs)/n, sum(r[1] for r in all_pairs)/n, sum(r[1]-r[0] for r in all_pairs)/n,
+           sum(r[2] for r in all_pairs)/n, sum(r[3] for r in all_pairs)/n, sum(r[3]-r[2] for r in all_pairs)/n]
+    if len(got) == 6:
+        for g, e in zip(got, exp):
+            if abs(g - round(e, 3)) > 6e-4:
+                errs.append(f"tab:opensetaug mean: tex {g} != results {e:.4f}")
+    else:
+        errs.append(f"tab:opensetaug mean: parsed {got}")
 
 # ---------- tab:scores (E10 decision-layer scores) ----------
 e10 = json.load(open(ROOT/"results"/"e10_scores.json"))["table"]

@@ -1,4 +1,4 @@
-# Clean Accuracy Is Not Diagnosis
+# Clean Accuracy Is Not a Diagnosis
 
 A noise-stress re-evaluation of eight lightweight 1D architectures for bearing fault
 diagnosis. Companion code, data splits and per-seed result files for the manuscript.

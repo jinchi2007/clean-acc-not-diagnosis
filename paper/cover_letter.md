@@ -5,7 +5,7 @@ To the Editor-in-Chief
 
 Dear Editor,
 
-We submit for your consideration the manuscript **"Clean Accuracy Is Not Diagnosis: A Noise-Stress
+We submit for your consideration the manuscript **"Clean Accuracy Is Not a Diagnosis: A Noise-Stress
 Re-evaluation of Lightweight Bearing Fault Diagnosis"** for publication as a Research Paper in
 *Measurement Science and Technology*.
 
