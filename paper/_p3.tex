@@ -3,7 +3,7 @@
 
 We withhold three classes from training and evaluate on a test set containing all ten, using two holdout configurations: the three 0.021-in faults (classes 3, 6, 9) and the three 0.007-in faults (classes 1, 4, 7). Closed-set accuracy on the known classes stays at 0.98--1.00, so closed-set accuracy gives no warning; the failure appears only in what the model does with the three classes it has never seen.
 
-Table~\ref{tab:openset} reports rejection quality. Averaged over the 48 runs, AUROC is 0.90 (range 0.70--1.00) and TPR at 5\% FPR---the fraction of known faults still accepted once 5\% of the unknown faults are let through---is 0.58 (range 0.01--1.00): at the operating point that rejects the unknowns, the average run would also reject 42\% of the known faults and the worst run 99\%. The spread across holdout sets, rather than the mean, is the deployment risk: the same architecture sits near either end depending on which classes are withheld.
+Table~\ref{tab:openset} reports rejection quality. Averaged over the 48 runs, AUROC is 0.90 (range 0.70--1.00) and TPR at 5\% FPR---the fraction of known faults still accepted once 5\% of the unknown faults are let through---is 0.58 (range 0.01--1.00): at the threshold that lets 5\% of the unknown faults through, the average run would also reject 42\% of the known-class samples, the worst run 99\%. The spread across holdout sets, rather than the mean, is the deployment risk: the same architecture sits near either end depending on which classes are withheld.
 
 \textbf{Finding 7.} Rejection quality is architecture-dependent, unstable across holdout sets, and \emph{anti}-correlated with noise robustness. WDCNN, the most noise-robust model of the eight (0.98 at 10\,dB), has the worst rejection (AUROC 0.84, TPR at 5\% FPR 0.12); ResNet1D and DS-CNN, the two most brittle models in noise, reject best (AUROC 0.97). Across the eight models, Spearman $\rho=-0.64$ ($p=0.09$, $n=8$) links 10\,dB accuracy and mean AUROC: moderate in size, not significant, and in the opposite direction to what deployment practice assumes. The mechanism is visible in the scores: a model that has learned a wide, noise-tolerant decision function maps unknown faults into the interior of a known class, while a brittle model responds with a confidently wrong but \emph{outlying} prediction. A claim that a model is robust in the noise sense should therefore be accompanied by an open-set number, because the two properties are not aligned. The recommendation of Section~4.3 does not repair the other axis either: the same per-batch augmentation that adds 27 points at 10\,dB lowers mean AUROC from 0.899 to 0.797 (Section~4.7).
 
@@ -17,9 +17,9 @@ Table~\ref{tab:openset} reports rejection quality. Averaged over the 48 runs, AU
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
 model & 3,6,9 & 1,4,7 & 3,6,9 & 1,4,7 & AUROC & TPR \\
 \midrule
-DS-CNN      & .979 & .965 & .888 & .860 & \best{.972} & .874 \\
+DS-CNN      & .979 & .965 & .888 & .860 & \best{.972} & \best{.874} \\
 ResNet1D    & .967 & .971 & .788 & .871 & .969 & .829 \\
-MCNN        & 1.000& .922 & .998 & .617 & .961 & \best{.807} \\
+MCNN        & 1.000& .922 & .998 & .617 & .961 & .807 \\
 TICNN       & .993 & .822 & .975 & .047 & .908 & .511 \\
 ViT1D       & .958 & .841 & .776 & .352 & .900 & .564 \\
 MLP-Mixer1D & .988 & .762 & .951 & .068 & .875 & .509 \\
@@ -184,7 +184,7 @@ The four families order the models differently. Broadband Gaussian noise is the 
 
 \begin{table}[t]
 \centering
-\caption{Architectures under four noise families (clean training, noise at test time only, mean over 2 seeds for the non-Gaussian families and 3 seeds for Gaussian). Accuracy at 10\,dB and 0\,dB SNR.}
+\caption{Architectures under four noise families (clean training, noise at test time only, mean over 2 seeds for the non-Gaussian families and 3 seeds for Gaussian). Accuracy at 10\,dB and 0\,dB SNR. Best value in each column in bold.}
 \label{tab:noisefam}
 \begin{tabular}{lrrrr|rrrr}
 \toprule
@@ -208,7 +208,7 @@ Table~\ref{tab:eff} reports parameter counts and measured latency on the same ac
 
 \begin{table}[t]
 \centering
-\caption{Parameters and inference latency on the training accelerator (Apple M5, MPS, 1{,}024-sample windows; mean of 30 (batch 1) / 10 (batch 256) forward passes after warm-up). Latencies were measured while other training jobs shared the device, so absolute numbers are 2--3$\times$ pessimistic; relative comparisons are unaffected.}
+\caption{Parameters and inference latency on the training accelerator (Apple M5, MPS, 1{,}024-sample windows; mean of 30 (batch 1) / 10 (batch 256) forward passes after warm-up). Latencies were measured while other training jobs shared the device, so absolute numbers are 2--3$\times$ pessimistic; relative comparisons are unaffected. Best throughput in bold.}
 \label{tab:eff}
 \begin{tabular}{lrrrrr}
 \toprule
@@ -230,7 +230,7 @@ Table~\ref{tab:cost} summarises the cost of the interventions instead. Noise aug
 
 \begin{table}[t]
 \centering
-\caption{Cost of the interventions studied in this paper, measured in the four-quadrant grid of Section~\ref{sec:combo} on one fixed architecture (ResNet1D, 241{,}322 parameters, three seeds), except the last row, which applies the same front-end to the other three backbones (four configurations, one seed). $\Delta$columns are percentage points with respect to the plain model.}
+\caption{Cost of the interventions studied in this paper, measured in the four-quadrant grid of Section~\ref{sec:combo} on one fixed architecture (ResNet1D, 241{,}322 parameters, three seeds), except the last row, which applies the same front-end to the other three backbones (four configurations, one seed). $\Delta$columns are percentage points with respect to the plain model. Largest 10\,dB and 0\,dB gain in bold.}
 \label{tab:cost}
 \begin{tabular}{lrrrr}
 \toprule
@@ -253,11 +253,11 @@ We use the 18-bearing KAt subset (six healthy bearings K001--K006 and twelve wit
 
 Clean accuracy is again compressed, though at a different level: the four plain models span 0.962 to 0.990, i.e.\ 3 points. Under noise they separate: at 10\,dB the plain models fall to 0.838--0.908 (7 points), at 5\,dB to 0.675--0.851 (18 points) and at 0\,dB to 0.517--0.807 (29 points). The absolute loss is smaller than on CWRU---Paderborn is a harder two-class problem that is not saturated to 99\% even clean---but the mechanism is the same, and on the harder condition the models that look equally good clean differ by 29 points.
 
-The rank inversion reappears in a weaker form (plain rows). ResNet1D is the best model clean (0.990) and drops to third at 10\,dB (0.885) and to second-worst at 0\,dB (0.558, 23 points below WDCNN); DS-CNN is third clean (0.974) and last at both 10\,dB (0.838) and 0\,dB (0.517). The clean and noisy orderings of the four plain models share no pair (Spearman $\rho=0$). The inversion is thus directional rather than complete: WDCNN, the worst model clean, is second at 10\,dB, but TICNN, second clean, is first at both 10\,dB and 0\,dB, so we cannot claim a full reversal on this dataset.
+The rank inversion reappears in a weaker form (plain rows). ResNet1D is the best model clean (0.990) and drops to third at 10\,dB (0.885) and to second-worst at 0\,dB (0.558, 23 points below WDCNN); DS-CNN is third clean (0.974) and last at both 10\,dB (0.838) and 0\,dB (0.517). The clean and noisy orderings of the four plain models agree on three of the six pairs and disagree on the other three (Spearman $\rho=0$). The inversion is thus directional rather than complete: WDCNN, the worst model clean, is second at 10\,dB, but TICNN, second clean, is first at both 10\,dB and 0\,dB, so we cannot claim a full reversal on this dataset.
 
 Augmentation behaves as it does on CWRU, and it is not free: it costs 6.6 points of clean accuracy for WDCNN and 13--15 points for the other three, and adds 1.6--5.1 points at 10\,dB, 9.3--24.7 at 5\,dB and 25.2 at 0\,dB for ResNet1D and DS-CNN. Most informative, the eight augmented rows have the \emph{same} clean and noisy ordering (WDCNN $>$ ResNet1D $>$ TICNN $>$ DS-CNN at both 10\,dB and clean), i.e.\ the inversion disappears once the perturbation is part of the training distribution. We note that TICNN with augmentation has a large seed spread (clean $0.826\pm0.083$) and loses 0.8 points at 0\,dB, so the three-model picture is more stable than the four-model one.
 
-\textbf{Finding 11.} The collapse under noise and the failure of clean accuracy to predict it reproduce on a second rig (two datasets, two label spaces, two window lengths): the clean-best model falls to third at 10\,dB and to second-worst at 0\,dB, and the clean-worst model is not the noisy-worst. The inversion is weaker than on CWRU---TICNN leads in both conditions---but it disappears under augmentation in the same way, so the phenomenon is a property of clean training rather than of one dataset.
+\textbf{Finding 11.} The collapse under noise and the failure of clean accuracy to predict it reproduce on a second rig (two datasets, two label spaces, two sampling rates): the clean-best model falls to third at 10\,dB and to second-worst at 0\,dB, and the clean-worst model is not the noisy-worst. The inversion is weaker than on CWRU---TICNN leads in both conditions---but it disappears under augmentation in the same way, so the phenomenon is a property of clean training rather than of one dataset.
 
 \begin{table}[t]
 \centering
@@ -292,20 +292,20 @@ That a wide first kernel helps under noise is not new—WDCNN made it standard i
 There is a physical reading of this. At 12\,kHz, 64 samples span 5.3\,ms; the ball-pass frequencies of the 6205-2RS drive-end bearing at 1{,}797\,r.p.m.\ are 107\,Hz (BPFO, 9.3\,ms) and 162\,Hz (BPFI, 6.2\,ms) \citep{randall2011tutorial}. A single wide kernel is comparable to one period of the fault signature, so it can act as a matched filter for one resonance band only; a bank of them covers several. Noise, which is broadband, is suppressed by the band-pass character while the periodic fault signature passes.
 
 \subsection{Robustness and rejectability are different axes}
-Our open-set audit adds a third inversion to the one described in Section~4.2. A model can be robust to additive noise---because its front end averages over many samples, or because it was trained to ignore perturbation---and yet be unable to tell a fault it has never seen from one it has. The two properties are weakly anti-correlated in our data ($\rho=-0.64$): the models with the widest effective receptive field and the most noise-tolerant decision functions (WDCNN, TICNN) are the ones that map unknown faults into the interior of a known class.
+Our open-set audit adds a third inversion to the one described in Section~4.2. A model can be robust to additive noise---because its front end averages over many samples, or because it was trained to ignore perturbation---and yet be unable to tell a fault it has never seen from one it has. The two properties are moderately anti-correlated in our data ($\rho=-0.64$, $p=0.09$): the models with the widest effective receptive field and the most noise-tolerant decision functions (WDCNN, TICNN) are the ones that map unknown faults into the interior of a known class.
 
 This is not a paradox. A noise-tolerant classifier is by construction a smoothing operator: it is trained to give the same answer for many perturbations of the input, and an unknown fault class is just one more perturbation that falls inside the smoothed region. Rejection quality instead depends on how \emph{peaked} the score function is around the training classes, which is what narrow, brittle models have. The practical consequence is that the two requirements must be evaluated, and optimised, separately: reporting a noise-robust model as deployment-ready without an open-set number conflates two axes of behaviour.
 
 How much of the second axis is the score is a separate question, and Section~4.8 answers it: with a Mahalanobis distance score the same networks reach 0.953 (clean) and 0.940 (augmented) mean AUROC (0.952 and 0.938 when the distance is measured in penultimate-feature space), and the cost of augmentation falls from 0.103 to 0.014 AUROC. The trade-off of Section~4.7 is therefore mostly a property of the softmax read-out: the smoothing that provides noise tolerance flattens the maximum-probability summary, but the class-conditional geometry that separates unseen faults survives it. The practical rule is the same as for robustness claims---report the open-set number together with the score that produced it.
 
 \subsection{What a practitioner should do}
-Given a fixed budget and a narrow-kernel backbone, our results suggest a concrete ordering: (i) add per-batch noise augmentation, which is free in parameters and worth 27 points on average; (ii) add a wide multi-channel stem, which is worth up to 55 points for about 1\% more parameters; (iii) only then consider architectural novelty. Both interventions are implemented in a few lines (Appendix~A). Reporting should follow with the test matrix that produced these numbers: at minimum clean plus two noisy SNRs, with seeds and paired statistics.
+Given a fixed budget and a narrow-kernel backbone, our results suggest a concrete ordering: (i) add per-batch noise augmentation, which is free in parameters and worth 27 points on average; (ii) add a wide multi-channel stem, which is worth up to 55 points for about 1\% more parameters; (iii) only then consider architectural novelty. Both interventions are implemented in a few lines of code; Appendix~A gives the reproduction commands. Reporting should follow with the test matrix that produced these numbers: at minimum clean plus two noisy SNRs, with seeds and paired statistics.
 
 \subsection{Implications for evaluation practice}
 A reviewer cannot detect a 55-point robustness gap from a table of clean accuracies, and an author has no incentive to report a stress test that might show a smaller number. The fix is structural rather than technical: noise stress and open-set evaluation should be mandatory in the reporting checklist, the way top conferences in vision now require multi-seed results. We give a seven-item list in Appendix~A.
 
 \subsection{Relation to prior critique}
-Recent position papers argue that vibration benchmarks are contaminated by overlapping-window leakage and non-comparable splits \citep{phme2026,ssrn2024}. Our audit agrees on the protocol problem but finds the effect small: at most 0.6 points at full data and at most 0.9 in a 20-per-class regime. The more serious contamination is saturation: when every method scores 99\%, the protocol no longer matters because the metric has no resolution. Our contribution is to show what a resolution-restoring test looks like and what it reveals.
+Recent position papers argue that vibration benchmarks are contaminated by overlapping-window leakage and non-comparable splits \citep{phme2026,ssrn2024}. Our audit agrees on the protocol problem but finds the effect small: at most 0.63 points at full data and at most 0.92 in a 20-per-class regime. The more serious contamination is saturation: when every method scores 99\%, the protocol no longer matters because the metric has no resolution. Our contribution is to show what a resolution-restoring test looks like and what it reveals.
 
 \section{Limitations}
 
@@ -357,7 +357,7 @@ All splits, per-seed result files, figures and the exact commands that regenerat
 \item \texttt{python -m experiments.stats \&\& python -m experiments.figures} --- tables and figures.
 \item \texttt{python experiments/check\_tables.py} --- re-verifies every table in this manuscript cell by cell against \texttt{results/*.json}.
 \end{enumerate}
-A single run takes 8--84\,s on CWRU (2--8\,min on Paderborn) on a laptop-class accelerator (Apple M5, MPS backend); the full matrix is about 430 runs, i.e.\ a few hours.
+A single run takes 4--140\,s on CWRU (2--8\,min on Paderborn) on a laptop-class accelerator (Apple M5, MPS backend); the full matrix is about 430 runs, i.e.\ a few hours.
 
 \paragraph{Reporting checklist.} We suggest that every vibration-diagnosis paper report:
 \begin{enumerate}
@@ -370,7 +370,7 @@ A single run takes 8--84\,s on CWRU (2--8\,min on Paderborn) on a laptop-class a
 \item code and split files, or an explicit statement that they are unavailable.
 \end{enumerate}
 
-\begingroup\setlength{\bibsep}{2pt}
+\begingroup\small\setlength{\bibsep}{0pt}
 \bibliographystyle{unsrt}
 \bibliography{refs}
 \endgroup

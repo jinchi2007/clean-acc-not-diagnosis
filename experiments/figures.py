@@ -172,12 +172,25 @@ def fig_stem():
         pts.append((r["label"], dc, d10))
     if not pts:
         return
-    fig, ax = plt.subplots(figsize=(4.0, 3.0))
+    # hand-tuned label offsets: several configs cluster within 2 points of one another
+    OFF = {
+        "resnet1d_k128_c8": (-6, 2, "right"),
+        "ds_cnn_k64_c8": (-6, 2, "right"),
+        "resnet1d_k64_c8": (6, 1, "left"),
+        "ds_cnn_k64_c4": (-6, -1, "right"),
+        "resnet1d_k64_c4": (0, -9, "center"),
+        "resnet1d_k32_c8": (6, 1, "left"),
+        "resnet1d_k64_c1": (6, 1, "left"),
+        "mcnn_k64_c8": (6, 1, "left"),
+        "vit1d_k64_c8": (6, 1, "left"),
+    }
+    fig, ax = plt.subplots(figsize=(4.6, 3.2))
     for name, dc, d10 in pts:
         ax.scatter(dc, d10, s=26, zorder=3)
-        ax.annotate(name.replace("_", " "), (dc, d10), fontsize=5,
-                    xytext=(3, 2), textcoords="offset points")
-    ax.axvline(0, color="gray", lw=0.8)
+        dx, dy, ha = OFF.get(name, (4, 2, "left"))
+        ax.annotate(name.replace("_", " "), (dc, d10), fontsize=5.6,
+                    xytext=(dx, dy), textcoords="offset points", ha=ha)
+    ax.set_xlim(-15.0, 4.2)
     ax.set_xlabel("Δ clean accuracy (points)")
     ax.set_ylabel("Δ accuracy @ 10 dB (points)")
     fig.savefig(FIG / "fig5_stem_tradeoff.pdf")

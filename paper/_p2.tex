@@ -6,11 +6,11 @@ Table~\ref{tab:sat} and Figure~\ref{fig:sat} report the four protocols over all 
 
 Changing the split has a much larger effect. The cross-load protocol costs 5 to 13 points per model (WDCNN 0.948, LeNet1D 0.856), i.e.\ 10 points on average, and it is the only column with visible structure. WDCNN is the best model there although it is only fifth under the leakage-safe protocol; the three narrow-kernel convolutional backbones (MCNN, ResNet1D, DS-CNN) all land within half a point of 0.899, which we read as a ceiling of the 10-class task across loads rather than as a property of the three models. The recording-disjoint column sits in between and carries the largest seed spread (WDCNN $0.955\pm0.052$), so we treat it as a consistency check rather than a ranking.
 
-Leakage is a small effect. Leaky is above safe for all eight models, but by at most 0.63 points (LeNet1D 0.982 vs.\ 0.975) and by 0.3 points or less for seven of them. Changing the protocol from leaky to cross-load costs 5--13 points, an order of magnitude more than leakage costs at full data. The same comparison in a 20-windows-per-class regime, where the overlap removes a much larger fraction of the training windows, gives a mean leaky-minus-safe gap of $+0.4$ points (four models, two seeds, at most $+0.9$ for WDCNN); that regime reduces accuracy from 0.38 (LeNet1D) to 0.98 (MCNN) and thus exposes model differences that full data hides, but leakage remains negligible there too.
+Leakage is a small effect. Leaky is above safe for all eight models, but by at most 0.63 points (LeNet1D 0.982 vs.\ 0.975) and by 0.3 points or less for seven of them. Changing the protocol from leaky to cross-load costs 5--13 points, an order of magnitude more than leakage costs at full data. The same comparison in a 20-windows-per-class regime, where the overlap removes a much larger fraction of the training windows, gives a mean leaky-minus-safe gap of $+0.44$ points (four models, two seeds, at most $+0.92$ for WDCNN); that regime reduces accuracy from 0.38 (LeNet1D) to 0.98 (MCNN) and thus exposes model differences that full data hides, but leakage remains negligible there too.
 
 \textbf{Finding 1.} All eight models reach at least $97.5\%$ under a leakage-safe protocol and span 2.5 points, less than the effect of changing the split. Clean CWRU accuracy can therefore not rank these architectures, let alone support the architectural claims made in the literature.
 
-\textbf{Finding 2.} Overlapping-window leakage inflates accuracy by at most 0.6 points at full data and by at most 0.9 points in a 20-windows-per-class regime. Split choice, not leakage, is what separates published numbers, and the more serious problem is saturation.
+\textbf{Finding 2.} Overlapping-window leakage inflates accuracy by at most 0.63 points at full data and by at most 0.92 points in a 20-windows-per-class regime. Split choice, not leakage, is what separates published numbers, and the more serious problem is saturation.
 
 \begin{table}[t]
 \centering
@@ -22,7 +22,7 @@ model & leaky & safe & cross-load & recording-disjoint\\
 \midrule
 WDCNN        & .999$\pm$.000 & .997$\pm$.001 & \best{.948}$\pm$.003 & .955$\pm$.052\\
 TICNN        & 1.000$\pm$.000 & 1.000$\pm$.000 & .911$\pm$.013 & .997$\pm$.005\\
-MCNN         & 1.000$\pm$.000 & 1.000$\pm$.000 & .900$\pm$.000 & .997$\pm$.004\\
+MCNN         & 1.000$\pm$.000 & \best{1.000}$\pm$.000 & .900$\pm$.000 & .997$\pm$.004\\
 ResNet1D     & 1.000$\pm$.000 & 1.000$\pm$.000 & .899$\pm$.000 & .997$\pm$.002\\
 DS-CNN       & 1.000$\pm$.000 & 1.000$\pm$.000 & .900$\pm$.001 & \best{.998}$\pm$.003\\
 LeNet1D      & .982$\pm$.003 & .975$\pm$.002 & .856$\pm$.002 & .954$\pm$.048\\
@@ -49,7 +49,7 @@ Table~\ref{tab:e2} reports the same models evaluated on noisy test signals. The 
 
 \begin{table*}[t]
 \centering
-\caption{Clean-trained models, test accuracy (mean over 3 seeds) at six SNRs. “Clean” is the uncorrupted test set. Standard deviations at 10\,dB are given in parentheses; the highest and the lowest 10\,dB entry are bold. The full per-seed table accompanies the released results.}
+\caption{Clean-trained models, test accuracy (mean over 3 seeds) at five SNRs (plus clean). “Clean” is the uncorrupted test set. Standard deviations at 10\,dB are given in parentheses; the highest and the lowest 10\,dB entry are bold. The full per-seed table accompanies the released results.}
 \label{tab:e2}
 \begin{tabular}{lrrrrrrr}
 \toprule
@@ -133,7 +133,7 @@ The previous two subsections suggest that robustness lives in what happens at th
 
 \begin{table}[t]
 \centering
-\caption{Wide-kernel front-end ablation (clean training, noise only at test time, one seed, 15 epochs). $\Delta$ relative to the same backbone without a front-end.}
+\caption{Wide-kernel front-end ablation (clean training, noise only at test time, one seed, 15 epochs). $\Delta$ relative to the same backbone without a front-end. Best value in each accuracy column in bold.}
 \label{tab:stem}
 \begin{tabular}{lrrrrrr}
 \toprule
@@ -158,7 +158,7 @@ ViT1D $k64c8$           & 143{,}706 & .9918 & .9049 & .7474 & .3489 & $+13.3$\\
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.62\textwidth]{../figures/fig5_stem_tradeoff.pdf}
-\caption{Trade-off of the wide multi-channel front-end: change in 10\,dB accuracy against change in clean accuracy, relative to the same backbone without a stem. Configurations in the lower-right quadrant are strictly dominated.}
+\caption{Trade-off of the wide multi-channel front-end: change in 10\,dB accuracy against change in clean accuracy, relative to the same backbone without a stem. All configurations lie in the upper-left quadrant: a large gain at 10\,dB for a small loss of clean accuracy.}
 \label{fig:stem}
 \end{figure}
 
@@ -173,7 +173,7 @@ ViT1D behaves differently: its patch embedding already projects the whole window
 
 \begin{table}[t]
 \centering
-\caption{Four-quadrant comparison of the front-end and noise augmentation (clean training vs.\ SNR $\sim U[0,15]$ per batch; three seeds). $\Delta$ in points relative to the plain backbone.}
+\caption{Four-quadrant comparison of the front-end and noise augmentation (clean training vs.\ SNR $\sim U[0,15]$ per batch; three seeds). $\Delta$ in points relative to the plain backbone. Best 10\,dB and 0\,dB value in each model block in bold.}
 \label{tab:combo}
 \begin{tabular}{llrrrrr}
 \toprule
