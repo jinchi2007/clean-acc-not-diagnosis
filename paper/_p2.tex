@@ -4,7 +4,7 @@
 
 Table~\ref{tab:sat} and Figure~\ref{fig:sat} show the four split protocols for all eight models. Under the leakage-safe protocol seven of the eight models exceed 99.6\%, and the whole span is 2.5 points, from LeNet1D at 0.975 to MCNN at 1.000. In Figure~\ref{fig:sat} the two left columns look the same.
 
-The split matters much more. The cross-load protocol costs 5 to 13 points per model (WDCNN 0.948, LeNet1D 0.856), about 10 points on average, and it is the only protocol that separates the models. WDCNN is the best there even though it is only fifth under the leakage-safe protocol. The three narrow-kernel convolutional backbones (MCNN, ResNet1D, DS-CNN) all land within half a point of 0.899, which looks like a ceiling of the 10-class task across loads rather than a property of the three models. The recording-disjoint column lies in between and has the largest seed spread (WDCNN $0.955\pm0.052$), so we use it as a consistency check and not for ranking.
+The split matters much more. The cross-load protocol costs 5 to 13 points per model (WDCNN 0.948, LeNet1D 0.856), about 10 points on average, and it is the only protocol that separates the models. WDCNN is the best there even though it is only fifth under the leakage-safe protocol. The three narrow-kernel convolutional backbones (MCNN, ResNet1D, DS-CNN) all land within half a point of 0.899, while WDCNN (0.948) and TICNN (0.911) sit clearly above it, so the convergence looks like a limitation of the narrow-kernel input layer rather than of the individual models. The recording-disjoint column lies in between and has the largest seed spread (WDCNN $0.955\pm0.052$), so we use it as a consistency check and not for ranking.
 
 Leakage is a small effect. The leaky split is above the safe one for seven of the eight models (MCNN ties at 1.000), but by at most 0.63 points (LeNet1D 0.982 vs.\ 0.975) and by 0.3 points or less for six of them. Going from leaky to cross-load costs 5--13 points, an order of magnitude more than leakage costs at full data. We repeated the comparison in a 20-windows-per-class regime, where the overlap removes a much larger fraction of the training windows. There the mean leaky-minus-safe gap is $+0.44$ points (four models, two seeds, at most $+0.92$ for WDCNN). That regime collapses LeNet1D to 0.38 while MCNN stays at 0.98, so it exposes model differences that full data hides; leakage is still negligible.
 
@@ -158,7 +158,7 @@ ViT1D $k64c8$           & 143{,}706 & .9918 & .9049 & .7474 & .3489 & $+13.3$\\
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.62\textwidth]{../figures/fig5_stem_tradeoff.pdf}
-\caption{Trade-off of the wide multi-channel front-end: change in 10\,dB accuracy against change in clean accuracy, relative to the same backbone without a stem. All configurations lie in the upper-left quadrant: a large gain at 10\,dB for a small loss of clean accuracy.}
+\caption{Trade-off of the wide multi-channel front-end: change in 10\,dB accuracy against change in clean accuracy, relative to the same backbone without a stem. All configurations lie in the upper-left quadrant, gaining at 10\,dB at some cost in clean accuracy: at most 2.6 points for the multi-channel stems, but 12.7 points for the single-channel variant ($k64c1$), which gains 34.3.}
 \label{fig:stem}
 \end{figure}
 
@@ -169,7 +169,7 @@ The two interventions act on different parts of the pipeline, so they need not b
 
 \textbf{Finding 6.} The combination is the best configuration at 10\,dB for three of the four backbones (ResNet1D 0.989, DS-CNN 0.973, MCNN 0.995) and loses to augmentation alone in the fourth (ViT1D 0.978 vs.\ 0.991). Two effects make the combination better than either intervention alone on the three narrow-kernel backbones. First, the front-end cancels most of the clean-accuracy cost of augmentation: augmentation alone costs 8.0--14.6 clean points on these backbones, while stem plus augmentation costs 0.6--4.3, plausibly because the parallel band-pass filters absorb the distribution shift that the noise schedule introduces. Second, the largest gains appear at low SNR: at 0\,dB, moving from plain to stem plus augmentation adds 73, 49, 81 and 61 points respectively, and even at $-5$\,dB (outside the augmentation range) the gain remains 10--43 points (not shown in Table~\ref{tab:combo}).
 
-ViT1D behaves differently. Its patch embedding and self-attention already mix information across the window, so the front-end adds only 15 points at 10\,dB, less than the 24 points gained from augmentation. For this backbone the training recipe matters more than the input layer.
+ViT1D behaves differently. Its patch embedding and self-attention already mix information across the window, so the front-end adds only 15 points at 10\,dB in this 20-epoch grid (13 in the 15-epoch ablation of Table~\ref{tab:stem}), less than the 24 points gained from augmentation. For this backbone the training recipe matters more than the input layer.
 
 \begin{table}[t]
 \centering
